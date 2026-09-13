@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Circular Motion Part 1 — Quiz | The Concept Lab</title>
+<meta name="description" content="Watch Circular Motion Part 1 (Angles, Arcs &amp; Radians) then test yourself with a 5-question quiz.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FDFCF7; --bg2:#F4F1E7;
+    --ink:#1E3A5C; --ink-soft:#5B6B78;
+    --rule:rgba(60,95,150,.22);
+    --accent:#F5B041; --accent-ink:#1E3A5C;
+    --good:#2F7A4F; --bad:#C64033;
+    --highlight:rgba(247,214,84,.55);
+    --note-g:#BEDCAE; --note-g-ink:#2b4a1c;
+    --note-p:#F0B9C6; --note-p-ink:#6b1f30;
+    --note-b:#AFD3E6; --note-b-ink:#1c3f52;
+    --card:#FDFCF7;
+    --shadow:rgba(30,30,20,.28);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#1B2621; --bg2:#16201B;
+      --ink:#EFEBDD; --ink-soft:#9FB0A4;
+      --rule:rgba(255,255,255,.10);
+      --accent:#F5B041; --accent-ink:#EFEBDD;
+      --good:#8FD6A6; --bad:#FF8A72;
+      --highlight:rgba(255,213,79,.22);
+      --note-g:rgba(190,220,174,.14); --note-g-ink:#BEDCAE;
+      --note-p:rgba(240,185,198,.14); --note-p-ink:#F0B9C6;
+      --note-b:rgba(175,211,230,.14); --note-b-ink:#AFD3E6;
+      --card:rgba(255,255,255,.04);
+      --shadow:rgba(0,0,0,.5);
+    }
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:'Kalam',cursive; font-size:19px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--highlight); color:var(--ink);}
+  h1,h2,h3{font-family:'Permanent Marker',cursive; font-weight:400; letter-spacing:.01em;}
+
+  .page{ max-width:760px; margin:0 auto; padding:40px clamp(18px,6vw,56px) 90px; }
+
+  header{ margin-bottom:34px; }
+  .eyebrow{ color:var(--accent-ink); opacity:.8; font-size:15px; margin:0 0 4px; transform:rotate(-1deg); }
+  h1{ font-size:clamp(32px,7vw,52px); line-height:1.05; margin:0 0 10px; color:var(--bad); text-wrap:balance; }
+  header p.dek{ max-width:52ch; font-size:19px; color:var(--ink-soft); margin:0; }
+
+  section{ margin-bottom:44px; }
+  h2{ font-size:clamp(24px,5vw,30px); color:var(--accent-ink); margin:0 0 14px; display:inline-block; }
+  h2 .hi{ background:var(--highlight); padding:0 8px; border-radius:3px 8px 5px 9px/6px 4px 8px 3px; }
+  p{ margin:0 0 12px; max-width:62ch; }
+  .lede{ font-size:18px; color:var(--ink-soft); }
+
+  /* ---------------- video ---------------- */
+  .video-wrap{
+    position:relative; width:100%; padding-top:56.25%;
+    border-radius:10px 16px 12px 18px/14px 9px 16px 11px;
+    overflow:hidden; box-shadow:5px 8px 0 var(--shadow); border:3px solid var(--ink);
+    background:#000;
+  }
+  .video-wrap iframe, .video-wrap #player{
+    position:absolute; inset:0; width:100%; height:100%; border:0;
+  }
+  .coming-soon{
+    position:relative; width:100%; padding-top:56.25%;
+    border-radius:10px 16px 12px 18px/14px 9px 16px 11px;
+    border:3px dashed var(--ink-soft); display:flex; align-items:center; justify-content:center;
+  }
+  .coming-soon > div{
+    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:20px; color:var(--ink-soft);
+  }
+  .coming-soon strong{ font-family:'Permanent Marker',cursive; font-weight:400; color:var(--ink); font-size:20px; margin-bottom:6px; }
+
+  /* ---------------- lock notice ---------------- */
+  .lock-notice{
+    margin-top:22px; padding:16px 20px; border-radius:8px 14px 10px 16px/12px 8px 14px 10px;
+    background:var(--bg2); border:2.5px dashed var(--ink-soft);
+    display:flex; align-items:center; gap:14px;
+  }
+  .lock-notice svg{ flex:none; width:34px; height:34px; }
+  .lock-notice p{ margin:0; font-size:17px; color:var(--ink-soft); }
+  .lock-icon path{ fill:none; stroke:var(--ink-soft); stroke-width:4; stroke-linecap:round; stroke-linejoin:round; }
+  .lock-icon rect{ fill:none; stroke:var(--ink-soft); stroke-width:4; }
+
+  /* ---------------- quiz ---------------- */
+  #quizSection{ transition:opacity .5s ease; }
+  #quizSection[hidden]{ display:none; }
+  .unlock-banner{
+    margin-bottom:24px; padding:12px 18px; border-radius:8px 14px 10px 16px/12px 8px 14px 10px;
+    background:var(--note-g); color:var(--note-g-ink); font-size:17px; display:inline-block;
+  }
+  .quiz-q{ margin-top:26px; padding-top:26px; border-top:2px dashed var(--rule); }
+  .quiz-q:first-of-type{ margin-top:0; padding-top:0; border-top:none; }
+  .quiz-q p.qtext{ font-size:19px; margin-bottom:10px; }
+  .quiz-opts{ display:flex; flex-direction:column; gap:9px; }
+  .opt{
+    text-align:left; font-family:'Kalam',cursive; font-size:17.5px;
+    padding:9px 16px; border:2.5px solid var(--ink-soft);
+    border-radius:10px 16px 12px 18px/14px 9px 16px 11px;
+    background:transparent; cursor:pointer; color:var(--ink);
+  }
+  .opt:hover:not(.correct):not(.incorrect){ border-color:var(--accent-ink); }
+  .opt.correct{ border-color:var(--good); background:var(--note-g); color:var(--note-g-ink); }
+  .opt.incorrect{ border-color:var(--bad); background:var(--note-p); color:var(--note-p-ink); }
+  .opt[disabled]{ cursor:default; }
+  .quiz-feedback{ font-size:15.5px; color:var(--ink-soft); margin-top:8px; min-height:1.3em; }
+
+  .score-card{
+    margin-top:34px; padding:22px 24px; border-radius:10px 16px 12px 18px/14px 9px 16px 11px;
+    background:var(--bg2); border:2.5px solid var(--ink); box-shadow:4px 6px 0 var(--shadow);
+    text-align:center;
+  }
+  .score-card[hidden]{ display:none; }
+  .score-card h3{ margin:0 0 6px; font-size:24px; color:var(--bad); }
+  .score-card p{ margin:0 auto 14px; }
+  .score-card a{
+    display:inline-block; margin-top:6px; font-family:'Permanent Marker',cursive;
+    color:var(--accent-ink); text-decoration:none; border-bottom:2px solid var(--accent-ink);
+    padding-bottom:2px;
+  }
+
+  footer{ margin-top:60px; text-align:center; color:var(--ink-soft); font-size:15px; }
+  footer a{ color:var(--ink-soft); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <p class="eyebrow">The Concept Lab &middot; Practice Quiz</p>
+    <h1>Circular Motion Part 1</h1>
+    <p class="dek">Angles, Arcs &amp; Radians — watch the video, then test yourself below. The quiz unlocks automatically once the video finishes.</p>
+  </header>
+
+  <section>
+    <h2><span class="hi">Watch first</span></h2>
+    <p class="lede">Finished the video already? Just let it play through to the end (or re-watch the last few seconds) and the quiz will unlock right below.</p>
+
+    <div class="video-wrap" id="videoWrap">
+      <div id="player"></div>
+    </div>
+
+    <div class="coming-soon" id="comingSoon" hidden>
+      <div>
+        <strong>Video coming soon</strong>
+        <span>Part 1 isn't published yet — check back once it's live on The Concept Lab.</span>
+      </div>
+    </div>
+
+    <div class="lock-notice" id="lockNotice">
+      <svg class="lock-icon" viewBox="0 0 34 34" aria-hidden="true">
+        <rect x="8" y="15" width="18" height="14" rx="3"/>
+        <path d="M12 15v-4a5 5 0 0 1 10 0v4"/>
+      </svg>
+      <p>Quiz is locked until you finish watching the video above.</p>
+    </div>
+  </section>
+
+  <section id="quizSection" hidden>
+    <h2><span class="hi">Test yourself</span></h2>
+    <p class="unlock-banner">Nice — the video's done. Here's your 5-question check.</p>
+
+    <div class="quiz-q" data-quiz>
+      <p class="qtext"><b>1.</b> In circular motion, angular displacement &theta; is best described as:</p>
+      <div class="quiz-opts">
+        <button class="opt" data-correct="false">A. The straight-line distance between the start and end points</button>
+        <button class="opt" data-correct="true">B. The angle swept out by a radius line as an object moves around a circle</button>
+        <button class="opt" data-correct="false">C. The total distance travelled along the circular path</button>
+        <button class="opt" data-correct="false">D. The time taken to complete one full revolution</button>
+      </div>
+      <p class="quiz-feedback"></p>
+    </div>
+
+    <div class="quiz-q" data-quiz>
+      <p class="qtext"><b>2.</b> A point moves along a circular arc of radius <i>r</i>, sweeping out an angle &theta; (in radians). A car travels around a circular track of radius 50&nbsp;m and sweeps out an angle of 2&nbsp;rad. How much arc length has it covered?</p>
+      <div class="quiz-opts">
+        <button class="opt" data-correct="false">A. 25 m</button>
+        <button class="opt" data-correct="false">B. 52 m</button>
+        <button class="opt" data-correct="true">C. 100 m</button>
+        <button class="opt" data-correct="false">D. 0.04 m</button>
+      </div>
+      <p class="quiz-feedback"></p>
+    </div>
+
+    <div class="quiz-q" data-quiz>
+      <p class="qtext"><b>3.</b> The radian is defined as the angle subtended at the centre of a circle by an arc whose length is equal to:</p>
+      <div class="quiz-opts">
+        <button class="opt" data-correct="false">A. The diameter of the circle</button>
+        <button class="opt" data-correct="false">B. Half the radius</button>
+        <button class="opt" data-correct="true">C. The radius of the circle</button>
+        <button class="opt" data-correct="false">D. The full circumference</button>
+      </div>
+      <p class="quiz-feedback"></p>
+    </div>
+
+    <div class="quiz-q" data-quiz>
+      <p class="qtext"><b>4.</b> Convert 60&deg; into radians.</p>
+      <div class="quiz-opts">
+        <button class="opt" data-correct="false">A. 0.52 rad</button>
+        <button class="opt" data-correct="true">B. 1.05 rad</button>
+        <button class="opt" data-correct="false">C. 1.57 rad</button>
+        <button class="opt" data-correct="false">D. 3.14 rad</button>
+      </div>
+      <p class="quiz-feedback"></p>
+    </div>
+
+    <div class="quiz-q" data-quiz>
+      <p class="qtext"><b>5.</b> Convert 90&deg; into radians.</p>
+      <div class="quiz-opts">
+        <button class="opt" data-correct="false">A. &pi;&frasl;4 rad (&asymp; 0.785 rad)</button>
+        <button class="opt" data-correct="true">B. &pi;&frasl;2 rad (&asymp; 1.57 rad)</button>
+        <button class="opt" data-correct="false">C. &pi; rad (&asymp; 3.14 rad)</button>
+        <button class="opt" data-correct="false">D. 2&pi; rad (&asymp; 6.28 rad)</button>
+      </div>
+      <p class="quiz-feedback"></p>
+    </div>
+
+    <div class="score-card" id="scoreCard" hidden>
+      <h3 id="scoreTitle">Done!</h3>
+      <p id="scoreText"></p>
+      <a href="https://www.youtube.com/@IGCSEMathPhysicsLab" target="_blank" rel="noopener">More from The Concept Lab &rarr;</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>The Concept Lab &middot; Learn it once. Understand it forever.<br>
+    <a href="https://www.youtube.com/@IGCSEMathPhysicsLab" target="_blank" rel="noopener">Subscribe on YouTube</a></p>
+  </footer>
+
+</div>
+
+<script>
+  // ---- CONFIG: swap this one line once Part 1 is live on YouTube, then commit + push ----
+  var YOUTUBE_VIDEO_ID = "REPLACE_WITH_PART1_VIDEO_ID";
+
+  function isPlaceholder(id){ return !id || id.indexOf("REPLACE_WITH") !== -1; }
+
+  function revealQuiz(){
+    var quizSection = document.getElementById('quizSection');
+    var lockNotice = document.getElementById('lockNotice');
+    if (lockNotice) lockNotice.style.display = 'none';
+    if (quizSection.hidden){
+      quizSection.hidden = false;
+      quizSection.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  }
+
+  if (isPlaceholder(YOUTUBE_VIDEO_ID)){
+    document.getElementById('videoWrap').hidden = true;
+    document.getElementById('comingSoon').hidden = false;
+  } else {
+    window.onYouTubeIframeAPIReady = function(){
+      new YT.Player('player', {
+        videoId: YOUTUBE_VIDEO_ID,
+        playerVars: { rel: 0, modestbranding: 1 },
+        events: {
+          'onStateChange': function(event){
+            if (event.data === YT.PlayerState.ENDED){
+              revealQuiz();
+            }
+          }
+        }
+      });
+    };
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    document.head.appendChild(tag);
+  }
+
+  // ---- quiz grading ----
+  var totalQuestions = document.querySelectorAll('[data-quiz]').length;
+  var answeredCount = 0, correctCount = 0;
+
+  document.querySelectorAll('[data-quiz]').forEach(function(q){
+    var opts = q.querySelectorAll('.opt');
+    var feedback = q.querySelector('.quiz-feedback');
+    opts.forEach(function(opt){
+      opt.addEventListener('click', function(){
+        if (q.dataset.answered) return;
+        q.dataset.answered = '1';
+        answeredCount++;
+        var isCorrect = opt.dataset.correct === 'true';
+        if (isCorrect) correctCount++;
+        opts.forEach(function(o){
+          o.disabled = true;
+          if (o.dataset.correct === 'true'){ o.classList.add('correct'); }
+          else if (o === opt){ o.classList.add('incorrect'); }
+        });
+        feedback.textContent = isCorrect ? 'Correct.' : 'Not quite — the correct answer is highlighted above.';
+
+        if (answeredCount === totalQuestions){
+          var scoreCard = document.getElementById('scoreCard');
+          var scoreTitle = document.getElementById('scoreTitle');
+          var scoreText = document.getElementById('scoreText');
+          scoreTitle.textContent = correctCount === totalQuestions ? 'Perfect score!' : 'Quiz complete';
+          scoreText.textContent = 'You scored ' + correctCount + ' / ' + totalQuestions + '.' +
+            (correctCount === totalQuestions ? ' You have angles, arcs and radians down.' : ' Rewatch the video to review anything you missed, then you are ready for Part 2.');
+          scoreCard.hidden = false;
+          scoreCard.scrollIntoView({behavior:'smooth', block:'center'});
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Concept Lab — Practice Quizzes</title>
+<meta name="description" content="Companion practice quizzes for The Concept Lab YouTube videos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FDFCF7; --ink:#1E3A5C; --ink-soft:#5B6B78;
+    --accent:#C64033; --highlight:rgba(247,214,84,.55);
+    --card:#FDFCF7; --rule:rgba(60,95,150,.22); --shadow:rgba(30,30,20,.28);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#1B2621; --ink:#EFEBDD; --ink-soft:#9FB0A4; --accent:#FF8A72; --card:rgba(255,255,255,.04); --shadow:rgba(0,0,0,.5); }
+  }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:'Kalam',cursive; font-size:19px; line-height:1.55; }
+  h1{ font-family:'Permanent Marker',cursive; font-weight:400; color:var(--accent); }
+  .page{ max-width:700px; margin:0 auto; padding:50px 24px 90px; }
+  h1{ font-size:clamp(32px,7vw,48px); margin:0 0 8px; }
+  p.dek{ color:var(--ink-soft); max-width:56ch; margin:0 0 34px; }
+  .quiz-list{ display:flex; flex-direction:column; gap:16px; }
+  .quiz-card{
+    display:block; text-decoration:none; color:var(--ink);
+    padding:18px 20px; border-radius:10px 16px 12px 18px/14px 9px 16px 11px;
+    background:var(--card); border:2.5px solid var(--ink); box-shadow:4px 6px 0 var(--shadow);
+  }
+  .quiz-card b{ font-family:'Permanent Marker',cursive; font-weight:400; font-size:20px; color:var(--accent); display:block; margin-bottom:4px; }
+  .quiz-card span{ color:var(--ink-soft); font-size:16px; }
+  footer{ margin-top:50px; color:var(--ink-soft); font-size:15px; text-align:center; }
+  footer a{ color:var(--ink-soft); }
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>The Concept Lab — Quizzes</h1>
+  <p class="dek">Short, self-graded practice quizzes that go with select videos from <a href="https://www.youtube.com/@IGCSEMathPhysicsLab" target="_blank" rel="noopener">The Concept Lab</a>. Watch the paired video first — each quiz unlocks automatically once the video ends.</p>
+
+  <div class="quiz-list">
+    <a class="quiz-card" href="circular-motion/part1-quiz.html">
+      <b>Circular Motion — Part 1</b>
+      <span>Angles, Arcs &amp; Radians — 5 questions</span>
+    </a>
+  </div>
+
+  <footer>
+    <p>The Concept Lab &middot; Learn it once. Understand it forever.<br>
+    <a href="https://www.youtube.com/@IGCSEMathPhysicsLab" target="_blank" rel="noopener">Subscribe on YouTube</a></p>
+  </footer>
+</div>
+</body>
+</html>
