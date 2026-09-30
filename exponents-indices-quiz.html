@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Exponents &amp; Indices — Concept Test</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root{
+  --ink:#22252b;
+  --paper:#ffffff;
+  --page-bg:#f7f8fb;
+  --muted:#5c6470;
+  --card-border:#e6e8ee;
+  --green:#2ECC71;
+  --green-dark:#1e9e57;
+  --red:#E5484D;
+  --red-dark:#c23237;
+  --core:#1E88E5;
+  --core2:#42A5F5;
+  --ext:#8E24AA;
+  --ext2:#AB47BC;
+  --formula:#00897B;
+  --formula2:#26A69A;
+  --exam:#FB8C00;
+  --exam2:#FFA726;
+}
+*{box-sizing:border-box;}
+html,body{
+  margin:0;padding:0;color:var(--ink);font-family:'Segoe UI',system-ui,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 12% 0%, #f2ecff 0%, transparent 42%),
+    radial-gradient(circle at 88% 8%, #e4f5ff 0%, transparent 38%),
+    var(--page-bg);
+  overflow-x:hidden;
+}
+h1,h2,h3{font-family:'Segoe UI',system-ui,Arial,sans-serif;}
+
+/* ---------- Sticky top bar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:80;background:#fff;border-bottom:1px solid var(--card-border);
+  box-shadow:0 2px 10px rgba(20,20,40,.06);
+}
+.topbar-inner{
+  max-width:960px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+}
+.tb-title{font-weight:800;font-size:1.02rem;color:#2b2f38;white-space:nowrap;}
+.tb-title span{color:#7C4DFF;}
+.tb-spacer{flex:1;}
+.tb-stat{
+  display:flex;flex-direction:column;align-items:center;background:#f2f3f8;border-radius:10px;
+  padding:5px 12px;min-width:74px;
+}
+.tb-stat .lab{font-size:.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
+.tb-stat .val{font-size:1rem;font-weight:800;color:#2b2f38;font-variant-numeric:tabular-nums;}
+.tb-stat.timer .val{color:#1E88E5;}
+.tb-stat.formula .val{color:var(--formula);}
+.tb-stat.core .val{color:var(--core);}
+.tb-stat.ext .val{color:var(--ext);}
+.tb-stat.exam .val{color:var(--exam);}
+.tb-finish-btn{
+  background:#2b2f38;color:#fff;border:none;padding:9px 16px;border-radius:9px;font-weight:700;
+  font-size:.82rem;cursor:pointer;white-space:nowrap;
+}
+.tb-finish-btn:hover{background:#181b21;}
+.tb-finish-btn:disabled{opacity:.4;cursor:not-allowed;}
+
+/* ---------- Layout ---------- */
+.wrap{max-width:960px;margin:0 auto;padding:22px 18px 60px;position:relative;}
+
+/* ---------- Floating exponent decoration ---------- */
+.fx-bg{position:absolute;top:0;left:0;right:0;height:520px;overflow:hidden;pointer-events:none;z-index:0;}
+.fx-sym{
+  position:absolute;bottom:-60px;font-weight:800;color:rgba(124,77,255,.14);
+  animation:fxFloat linear infinite;user-select:none;
+}
+@keyframes fxFloat{
+  0%{transform:translateY(0) rotate(0deg);opacity:0;}
+  8%{opacity:1;}
+  92%{opacity:1;}
+  100%{transform:translateY(-560px) rotate(18deg);opacity:0;}
+}
+.sc-brand-row, .sc-grid, .start-card{position:relative;z-index:1;}
+
+/* ---------- Start screen ---------- */
+@keyframes scBrandFloat{
+  0%,100%{transform:translateY(0) rotate(0deg);}
+  50%{transform:translateY(-6px) rotate(-3deg);}
+}
+@keyframes scBrandPulse{
+  0%,100%{box-shadow:0 10px 22px rgba(30,136,229,.32);}
+  50%{box-shadow:0 14px 30px rgba(142,36,170,.38);}
+}
+.sc-brand-row{display:flex;align-items:center;gap:16px;margin-bottom:24px;}
+.sc-brand-mark{
+  width:58px;height:58px;border-radius:16px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+  font-size:1.7rem;background:linear-gradient(135deg,var(--core),var(--ext));
+  animation:scBrandFloat 4s ease-in-out infinite, scBrandPulse 4s ease-in-out infinite;
+}
+.sc-brand-text h1{margin:0 0 4px;font-size:1.65rem;font-weight:800;color:#22252b;}
+.sc-brand-text p{margin:0;color:var(--muted);font-size:.9rem;line-height:1.55;max-width:660px;}
+
+.sc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:20px;perspective:1200px;}
+
+@keyframes scCardIn{from{opacity:0;transform:translateY(20px) scale(.96);}to{opacity:1;transform:translateY(0) scale(1);}}
+@keyframes scBadgeFloat{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-4px) rotate(-3deg);}}
+
+.sc-card{
+  position:relative;display:flex;align-items:flex-start;gap:14px;border-radius:20px;padding:18px;
+  background:linear-gradient(150deg,var(--tint-a) 0%,var(--tint-b) 100%);
+  box-shadow:0 8px 0 -3px var(--tint-b),0 12px 26px rgba(var(--shadow-rgb),.18);
+  transform-style:preserve-3d;transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s ease;
+  animation:scCardIn .5s cubic-bezier(.2,.8,.2,1) both;
+}
+.sc-grid .sc-card:nth-child(1){animation-delay:.05s;}
+.sc-grid .sc-card:nth-child(2){animation-delay:.14s;}
+.sc-grid .sc-card:nth-child(3){animation-delay:.23s;}
+.sc-grid .sc-card:nth-child(4){animation-delay:.32s;}
+
+.sc-card:hover{
+  transform:translateY(-8px) rotateX(4deg) scale(1.015);
+  box-shadow:0 14px 0 -4px var(--tint-b),0 22px 36px rgba(var(--shadow-rgb),.26);
+}
+
+.sc-badge{
+  flex:0 0 auto;width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:1.02rem;color:#fff;background:linear-gradient(135deg,var(--badge1),var(--badge2));
+  box-shadow:0 6px 12px rgba(var(--shadow-rgb),.4);animation:scBadgeFloat 3.4s ease-in-out infinite;
+}
+.sc-card-body{display:flex;flex-direction:column;gap:4px;min-width:0;}
+.sc-card-title{font-weight:800;font-size:.92rem;color:#22252b;}
+.sc-card-desc{font-size:.76rem;color:#5c6470;line-height:1.4;}
+
+.start-card{
+  background:#fff;border-radius:16px;padding:24px 26px;box-shadow:0 2px 14px rgba(20,20,40,.08);
+  border:1px solid var(--card-border);
+}
+.start-card label{display:block;font-weight:700;font-size:.85rem;color:#2b2f38;margin-bottom:6px;}
+.start-card input[type=text]{
+  width:100%;max-width:360px;padding:11px 14px;border-radius:10px;border:1.5px solid #d3d8e2;
+  font-size:.95rem;font-family:inherit;
+}
+.start-card input[type=text]:focus{outline:none;border-color:#1E88E5;}
+.start-card .hint{font-size:.78rem;color:var(--muted);margin:8px 0 18px;}
+.start-btn{
+  background:linear-gradient(120deg,var(--core),var(--ext));color:#fff;border:none;padding:12px 28px;border-radius:999px;
+  font-size:.9rem;font-weight:700;cursor:pointer;letter-spacing:.02em;box-shadow:0 4px 12px rgba(30,136,229,.28);
+  transition:filter .15s ease, transform .05s ease;
+}
+.start-btn:hover{filter:brightness(1.07);}
+.start-btn:active{transform:scale(.97);}
+
+/* ---------- Level sections ---------- */
+.part{
+  margin:30px 0;border-radius:16px;overflow:hidden;border:1.5px solid var(--card-border);background:#fff;
+  box-shadow:0 1px 6px rgba(20,20,40,.05);
+}
+.part-head{
+  padding:16px 22px;color:#fff;background:linear-gradient(120deg,var(--accent),var(--accent2));
+}
+.part-head h2{margin:0 0 4px;font-size:1.18rem;font-weight:800;}
+.part-head p{margin:0;font-size:.83rem;opacity:.92;}
+.part-body{padding:18px 22px 22px;background:linear-gradient(180deg,var(--tint) 0%, #fff 130px);}
+
+.group-title{
+  font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--accent);
+  margin:22px 0 6px;
+}
+.group-title:first-child{margin-top:4px;}
+
+.qcard{
+  background:#fff;border:1.5px solid var(--card-border);border-left:5px solid var(--accent);
+  border-radius:12px;padding:15px 18px;margin:14px 0;
+}
+.qcard .qhead{display:flex;align-items:baseline;gap:8px;margin-bottom:10px;}
+.qcard .qnum{
+  display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:26px;border-radius:50%;
+  background:var(--accent);color:#fff;font-weight:800;font-size:.78rem;flex:0 0 auto;
+}
+.qcard .qtext{font-size:.95rem;line-height:1.7;font-weight:600;color:#2b2f38;}
+
+.opts{display:flex;flex-direction:column;gap:8px;margin-top:4px;}
+.opt{
+  display:flex;align-items:center;gap:10px;text-align:left;background:#fbfbfd;border:1.5px solid #dfe3ec;
+  border-radius:10px;padding:9px 14px;font-size:.9rem;font-family:inherit;cursor:pointer;color:#2b2f38;
+  transition:border-color .12s, background .12s;
+}
+.opt:hover{border-color:var(--accent);background:#fff;}
+.opt .oletter{
+  display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;
+  background:#eceff4;color:var(--accent);font-weight:800;font-size:.74rem;flex:0 0 auto;
+}
+.opt.chosen.correct{background:var(--green);border-color:var(--green-dark);color:#fff;}
+.opt.chosen.correct .oletter{background:rgba(255,255,255,.28);color:#fff;}
+.opt.chosen.incorrect{background:var(--red);border-color:var(--red-dark);color:#fff;}
+.opt.chosen.incorrect .oletter{background:rgba(255,255,255,.28);color:#fff;}
+.opt.reveal-correct{border-color:var(--green-dark);border-width:2px;background:#eafaf0;}
+.opts.locked .opt{cursor:default;}
+.opts.locked .opt:not(.chosen):not(.reveal-correct):hover{border-color:#dfe3ec;background:#fbfbfd;}
+
+/* exponent / fraction / root rendering */
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;line-height:1.02;text-align:center;margin:0 2px;font-size:.86em;}
+.frac .num{border-bottom:1.6px solid currentColor;padding:0 4px 1px;}
+.frac .den{padding:1px 4px 0;}
+.radical{display:inline-flex;align-items:flex-end;white-space:nowrap;margin:0 2px;position:relative;}
+.radical .rindex{font-size:.55em;position:relative;top:-0.7em;margin-right:-3px;font-weight:700;}
+.radical .rsym{font-size:1.15em;line-height:1;margin-right:1px;}
+.radical .radicand{border-top:1.6px solid currentColor;padding:2px 4px 0 3px;}
+.pow{white-space:nowrap;}
+.pow sup{font-size:.65em;position:relative;top:-0.6em;margin-left:1px;}
+
+/* ---------- Summary ---------- */
+.summary{
+  background:#fff;border-radius:16px;padding:26px 28px;margin:26px 0;border:1.5px solid var(--card-border);
+  box-shadow:0 2px 14px rgba(20,20,40,.08);
+}
+.summary h2{margin:0 0 4px;font-size:1.3rem;}
+.summary .subtxt{color:var(--muted);font-size:.88rem;margin:0 0 18px;}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px;}
+.summary-stat{background:#f7f8fb;border-radius:12px;padding:14px;text-align:center;}
+.summary-stat .num{font-size:1.6rem;font-weight:800;color:#2b2f38;}
+.summary-stat .lab{font-size:.72rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.03em;margin-top:2px;}
+.part-breakdown{display:flex;flex-direction:column;gap:6px;}
+.pb-row{display:flex;align-items:center;gap:10px;font-size:.85rem;}
+.pb-row .pb-name{flex:1;color:#2b2f38;font-weight:600;}
+.pb-row .pb-bar{flex:2;height:9px;border-radius:5px;background:#eceff4;overflow:hidden;}
+.pb-row .pb-fill{height:100%;}
+.pb-row .pb-score{width:54px;text-align:right;font-weight:700;color:var(--muted);}
+
+footer.end{text-align:center;padding:30px 10px;color:#a0a6b0;font-size:.8rem;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="tb-title">🔢 <span>Exponents &amp; Indices</span></div>
+    <div class="tb-spacer"></div>
+    <div class="tb-stat timer" id="tbTimerWrap" style="display:none;">
+      <div class="lab">Time</div>
+      <div class="val" id="tbTimer">0:00</div>
+    </div>
+    <div class="tb-stat formula" id="tbFormulaWrap" style="display:none;">
+      <div class="lab">Formula</div>
+      <div class="val" id="tbFormula">0/10</div>
+    </div>
+    <div class="tb-stat core" id="tbCoreWrap" style="display:none;">
+      <div class="lab">Core</div>
+      <div class="val" id="tbCore">0/13</div>
+    </div>
+    <div class="tb-stat ext" id="tbExtWrap" style="display:none;">
+      <div class="lab">Extended</div>
+      <div class="val" id="tbExt">0/12</div>
+    </div>
+    <div class="tb-stat exam" id="tbExamWrap" style="display:none;">
+      <div class="lab">Exam</div>
+      <div class="val" id="tbExam">0/10</div>
+    </div>
+    <button class="tb-finish-btn" id="finishBtn" style="display:none;">Finish Test</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="fx-bg" id="fxBg"></div>
+
+  <!-- ============ START SCREEN ============ -->
+  <div id="startScreen">
+    <div class="sc-brand-row">
+      <div class="sc-brand-mark">🔢</div>
+      <div class="sc-brand-text">
+        <h1>Exponents &amp; Indices — Concept Test</h1>
+        <p>A closed-book concept test in four parts &mdash; <strong>Formula</strong> (recall the laws themselves), <strong>Core</strong> (integer indices), <strong>Extended</strong> (fractional &amp; negative-fractional indices) and <strong>Exam-Style</strong> (IGCSE past-paper-style questions). No formula sheet is shown &mdash; each part is scored separately, with instant feedback as you answer.</p>
+      </div>
+    </div>
+
+    <div class="sc-grid">
+      <div class="sc-card" style="--tint-a:#e3f4f1;--tint-b:#cceae4;--badge1:#26A69A;--badge2:#00897B;--shadow-rgb:0,137,123;">
+        <span class="sc-badge">F</span>
+        <span class="sc-card-body"><span class="sc-card-title">Formula Test &middot; 10 questions</span>
+        <span class="sc-card-desc">Recall the laws of indices themselves &mdash; no reference sheet.</span></span>
+      </div>
+      <div class="sc-card" style="--tint-a:#e9f3fd;--tint-b:#d3e8fb;--badge1:#42A5F5;--badge2:#1E88E5;--shadow-rgb:30,136,229;">
+        <span class="sc-badge">C</span>
+        <span class="sc-card-body"><span class="sc-card-title">Core Level &middot; 13 questions</span>
+        <span class="sc-card-desc">Multiplication &amp; division laws, power of a power, zero &amp; negative indices, powers of products/quotients.</span></span>
+      </div>
+      <div class="sc-card" style="--tint-a:#f5e9f8;--tint-b:#ecd6f3;--badge1:#AB47BC;--badge2:#8E24AA;--shadow-rgb:142,36,170;">
+        <span class="sc-badge">E</span>
+        <span class="sc-card-body"><span class="sc-card-title">Extended Level &middot; 12 questions</span>
+        <span class="sc-card-desc">Fractional indices &amp; roots, negative fractional indices, solving for an unknown index, combined-law simplification.</span></span>
+      </div>
+      <div class="sc-card" style="--tint-a:#fff2e1;--tint-b:#ffe3bf;--badge1:#FFA726;--badge2:#FB8C00;--shadow-rgb:251,140,0;">
+        <span class="sc-badge">X</span>
+        <span class="sc-card-body"><span class="sc-card-title">Exam-Style &middot; 10 questions</span>
+        <span class="sc-card-desc">Original questions written in the style of IGCSE past papers &mdash; multi-step, combining several laws.</span></span>
+      </div>
+    </div>
+
+    <div class="start-card">
+      <label for="studentName">Student name</label>
+      <input type="text" id="studentName" placeholder="Type your name here">
+      <div class="hint">The stopwatch starts as soon as you press Start. Formula, Core, Extended and Exam-Style scores are tracked separately &mdash; you'll see all four update live as you answer.</div>
+      <button class="start-btn" id="startBtn">▶ Start Test</button>
+    </div>
+  </div>
+
+  <!-- ============ TEST AREA ============ -->
+  <div id="testArea" style="display:none;"></div>
+
+  <!-- ============ SUMMARY ============ -->
+  <div id="summaryArea" style="display:none;"></div>
+
+  <footer class="end">Exponents &amp; Indices — Concept Test · Teacher Tools</footer>
+</div>
+
+<script>
+/* ---------- rendering helpers ---------- */
+function frac(n,d){ return '<span class="frac"><span class="num">'+n+'</span><span class="den">'+d+'</span></span>'; }
+function supTxt(x){
+  var s = String(x);
+  if (s.charAt(0) === '-'){ s = '&minus;' + s.slice(1); }
+  return s;
+}
+function sqrtHTML(n){ return '<span class="radical"><span class="rsym">&radic;</span><span class="radicand">'+n+'</span></span>'; }
+function nthRootHTML(idx,n){ return '<span class="radical"><span class="rindex">'+idx+'</span><span class="rsym">&radic;</span><span class="radicand">'+n+'</span></span>'; }
+function powHTML(base, exp){ return '<span class="pow">'+base+'<sup>'+supTxt(exp)+'</sup></span>'; }
+
+/* ---------- floating background exponent symbols ---------- */
+var FX_SYMS = ['x&sup2;','2&sup3;','a&#8319;','&radic;x','y&#8315;&sup1;','8<sup>1/3</sup>','a<sup>m</sup>','3&sup2;','&radic;16'];
+(function renderFx(){
+  var host = document.getElementById('fxBg');
+  var html = '';
+  for (var i=0;i<16;i++){
+    var left = Math.random()*96;
+    var dur = 9 + Math.random()*10;
+    var delay = Math.random()*12;
+    var size = 1.1 + Math.random()*1.6;
+    var sym = FX_SYMS[i % FX_SYMS.length];
+    html += '<span class="fx-sym" style="left:'+left+'%;font-size:'+size+'rem;animation-duration:'+dur+'s;animation-delay:-'+delay+'s;">'+sym+'</span>';
+  }
+  host.innerHTML = html;
+})();
+
+/* ---------- theme colours per level ---------- */
+var THEMES = {
+  formula: {accent:'#00897B', accent2:'#26A69A', tint:'#E3F4F1'},
+  core:    {accent:'#1E88E5', accent2:'#42A5F5', tint:'#E9F3FD'},
+  ext:     {accent:'#8E24AA', accent2:'#AB47BC', tint:'#F5E9F8'},
+  exam:    {accent:'#FB8C00', accent2:'#FFA726', tint:'#FFF2E1'}
+};
+
+/* ---------- question data ---------- */
+var DATA = [
+{
+  key:'formula',
+  title:'Formula Test &middot; Recall the Laws of Indices',
+  sub:'Closed-book &mdash; no formula reference. Choose the correct law for each statement.',
+  groups:[
+    { label:'Complete the Law', questions:[
+      { q:powHTML('a','m')+' &times; '+powHTML('a','n')+' = ?',
+        opts:[powHTML('a','m+n'),powHTML('a','m&minus;n'),powHTML('a','mn'),powHTML('a','m/n')], correct:0 },
+      { q:powHTML('a','m')+' &divide; '+powHTML('a','n')+' = ?',
+        opts:[powHTML('a','m&minus;n'),powHTML('a','m+n'),powHTML('a','mn'),powHTML('a','n&minus;m')], correct:0 },
+      { q:'('+powHTML('a','m')+')<sup>n</sup> = ?',
+        opts:[powHTML('a','mn'),powHTML('a','m+n'),powHTML('a','m&minus;n'),powHTML('a','m^n')], correct:0 },
+      { q:powHTML('a','0')+' = ? (a &ne; 0)',
+        opts:['1','0','a','Cannot be found'], correct:0 },
+      { q:powHTML('a','&minus;n')+' = ?',
+        opts:[frac('1',powHTML('a','n')),'&minus;'+powHTML('a','n'),powHTML('a','n'),frac('&minus;1',powHTML('a','n'))], correct:0 },
+      { q:'(ab)<sup>n</sup> = ?',
+        opts:[powHTML('a','n')+' &times; '+powHTML('b','n'), powHTML('a','n')+' + '+powHTML('b','n'), 'a + '+powHTML('b','n'), '(a+b)<sup>n</sup>'], correct:0 },
+      { q:'('+frac('a','b')+')<sup>n</sup> = ?',
+        opts:[frac(powHTML('a','n'),powHTML('b','n')), frac('a',powHTML('b','n')), frac(powHTML('a','n'),'b'), '(a&minus;b)<sup>n</sup>'], correct:0 },
+      { q:powHTML('a','1/n')+' = ?',
+        opts:[nthRootHTML('n','a'), 'na', frac('a','n'), powHTML('a','n')], correct:0 },
+      { q:powHTML('a','m/n')+' = ?',
+        opts:['('+nthRootHTML('n','a')+')<sup>m</sup>', 'm &middot; '+nthRootHTML('n','a'), nthRootHTML('n','a')+' + m', powHTML('a','n/m')], correct:0 },
+      { q:powHTML('a','&minus;m/n')+' = ?',
+        opts:[frac('1',powHTML('a','m/n')), '&minus;'+powHTML('a','m/n'), powHTML('a','m/n'), frac('&minus;1',powHTML('a','m/n'))], correct:0 }
+    ]}
+  ]
+},
+{
+  key:'core',
+  title:'Core Level &middot; Integer Indices',
+  sub:'Multiplication &amp; division laws, power of a power, zero &amp; negative indices.',
+  groups:[
+    { label:'Multiplication Law: aᵐ × aⁿ = aᵐ⁺ⁿ', questions:[
+      { q:'Simplify: '+powHTML('a',5)+' &times; '+powHTML('a',3), opts:[powHTML('a',8),powHTML('a',15),powHTML('a',2),powHTML('a',-2)], correct:0 },
+      { q:'Work out: '+powHTML(2,3)+' &times; '+powHTML(2,4), opts:['128','4096','64','16'], correct:0 },
+      { q:'Simplify: '+powHTML('x',2)+' &middot; '+powHTML('x',5)+' &middot; x', opts:[powHTML('x',8),powHTML('x',10),powHTML('x',7),powHTML('x',9)], correct:0 }
+    ]},
+    { label:'Division Law: aᵐ ÷ aⁿ = aᵐ⁻ⁿ', questions:[
+      { q:'Simplify: '+powHTML('a',9)+' &divide; '+powHTML('a',4), opts:[powHTML('a',5),powHTML('a',13),powHTML('a','2.25'),powHTML('a',4)], correct:0 },
+      { q:'Simplify: '+powHTML('y',6)+' &divide; '+powHTML('y',2)+' &divide; y', opts:[powHTML('y',3),powHTML('y',4),powHTML('y',12),powHTML('y',9)], correct:0 },
+      { q:'Work out: '+powHTML(10,8)+' &divide; '+powHTML(10,5), opts:[powHTML(10,3),powHTML(10,13),powHTML(10,'1.6'),powHTML(10,-3)], correct:0 }
+    ]},
+    { label:'Power of a Power: (aᵐ)ⁿ = aᵐⁿ', questions:[
+      { q:'Simplify: ('+powHTML('a',3)+')<sup>4</sup>', opts:[powHTML('a',12),powHTML('a',7),powHTML('a',81),powHTML('a',-12)], correct:0 },
+      { q:'Work out: ('+powHTML(2,2)+')<sup>3</sup>', opts:['64','12','8','32'], correct:0 },
+      { q:'Simplify: ('+powHTML('x',-2)+')<sup>3</sup>', opts:[powHTML('x',-6),powHTML('x',6),powHTML('x',1),powHTML('x',-8)], correct:0 }
+    ]},
+    { label:'Zero, Negative &amp; Product/Quotient Powers', questions:[
+      { q:'Evaluate: '+powHTML(9,0), opts:['1','0','9','Cannot be found'], correct:0 },
+      { q:'Evaluate: '+powHTML(4,-2), opts:[frac(1,16),'&minus;8','&minus;16',frac(1,8)], correct:0 },
+      { q:'Simplify: (3x)<sup>2</sup>', opts:['9x&sup2;','6x&sup2;','3x&sup2;','9x'], correct:0 },
+      { q:'Simplify: ('+frac('x','y')+')<sup>3</sup>', opts:[frac('x&sup3;','y&sup3;'),'x&sup3;y&sup3;',frac('3x','3y'),frac('x','y&sup3;')], correct:0 }
+    ]}
+  ]
+},
+{
+  key:'ext',
+  title:'Extended Level &middot; Fractional Indices',
+  sub:'Roots as fractional indices, negative fractional indices, solving index equations.',
+  groups:[
+    { label:'Root Index: a^(1/n) = ⁿ√a', questions:[
+      { q:'Evaluate: '+powHTML(8,'1/3'), opts:['2','4','8',frac(1,2)], correct:0 },
+      { q:'Evaluate: '+powHTML(16,'1/4'), opts:['2','4','8','64'], correct:0 },
+      { q:'Evaluate: '+powHTML(25,'1/2'), opts:['5','12.5','50','625'], correct:0 }
+    ]},
+    { label:'Fractional Index: a^(m/n) = (ⁿ√a)ᵐ', questions:[
+      { q:'Evaluate: '+powHTML(8,'2/3'), opts:['4','64','16','2'], correct:0 },
+      { q:'Evaluate: '+powHTML(27,'2/3'), opts:['9','3','81','729'], correct:0 },
+      { q:'Evaluate: '+powHTML(16,'3/4'), opts:['8','4','64','2'], correct:0 }
+    ]},
+    { label:'Negative Fractional Index', questions:[
+      { q:'Evaluate: '+powHTML(8,'-1/3'), opts:[frac(1,2),'&minus;2','2',frac('&minus;1',2)], correct:0 },
+      { q:'Evaluate: '+powHTML(4,'-3/2'), opts:[frac(1,8),'&minus;8','8',frac(1,4)], correct:0 },
+      { q:'Evaluate: '+powHTML(9,'-1/2'), opts:[frac(1,3),'&minus;3','3',frac('&minus;1',3)], correct:0 }
+    ]},
+    { label:'Solving &amp; Combined Laws', questions:[
+      { q:'Solve for x: '+powHTML(3,'x')+' = 81', opts:['4','3','27','5'], correct:0 },
+      { q:'Solve for x: '+powHTML(2,'x')+' = '+frac(1,32), opts:['&minus;5','5','&minus;6','6'], correct:0 },
+      { q:'Simplify: (2a<sup>3</sup>)<sup>2</sup> &divide; a<sup>4</sup>', opts:[powHTML('4a',2),powHTML('4a',6),powHTML('2a',2),powHTML('4a',10)], correct:0 }
+    ]}
+  ]
+},
+{
+  key:'exam',
+  title:'Exam-Style Questions &middot; IGCSE Past-Paper Style',
+  sub:'Original questions written in the style of Cambridge IGCSE Mathematics (0580) past papers &mdash; multi-step reasoning combining several laws of indices. Closed-book.',
+  groups:[
+    { label:'Multi-Step Practice', questions:[
+      { q:'Simplify: (2x<sup>3</sup>)<sup>2</sup> &times; x<sup>&minus;5</sup>',
+        opts:['4x','4x&sup1;&sup1;','2x','4x&#8315;&sup1;'], correct:0 },
+      { q:'Solve the equation: '+powHTML(5,'2x&minus;1')+' = 125',
+        opts:['2','1','1.5','4'], correct:0 },
+      { q:'Write '+powHTML(8,'-2/3')+' as a fraction in its simplest form.',
+        opts:[frac(1,4),frac('&minus;1',4),'4',frac(1,6)], correct:0 },
+      { q:'Simplify: '+powHTML(27,'1/3')+' &times; '+powHTML(3,2),
+        opts:['27','9','81','3'], correct:0 },
+      { q:'a = '+powHTML(2,'x')+' and b = '+powHTML(2,'y')+'. Write '+powHTML(2,'x+y')+' in terms of a and b.',
+        opts:['ab','a + b',powHTML('a','y'),powHTML('b','x')], correct:0 },
+      { q:'Simplify, giving your answer in the form '+powHTML('kx','p')+'y<sup>q</sup>: (3x<sup>2</sup>y)<sup>3</sup> &divide; (9x<sup>4</sup>y<sup>2</sup>)',
+        opts:['3x&sup2;y','27x&sup2;y','3x&sup2;y&sup2;','3x&#185;&#8304;y&#8309;'], correct:0 },
+      { q:'Given that '+powHTML(2,'n')+' = 32, find the value of '+powHTML(2,'n+2'),
+        opts:['128','34','64','256'], correct:0 },
+      { q:'Simplify: ('+sqrtHTML('x')+')<sup>5</sup> &divide; x<sup>2</sup>, giving your answer in the form '+powHTML('x','k')+'. Find k.',
+        opts:['1/2','3/2','3','&minus;1/2'], correct:0 },
+      { q:'Simplify '+powHTML(4,'x')+' &times; '+powHTML(2,'x')+', giving your answer as a single power of 2.',
+        opts:[powHTML(2,'3x'),powHTML(2,'2x'),powHTML(8,'x'),powHTML(2,'x&sup2;')], correct:0 },
+      { q:'Solve for x: '+powHTML(9,'x')+' = '+powHTML(3,'x+4'),
+        opts:['4','2','8','&minus;4'], correct:0 }
+    ]}
+  ]
+}
+];
+
+var OPT_LETTERS = ['A','B','C','D'];
+var LEVEL_LABELS = { formula:'Formula', core:'Core', ext:'Extended', exam:'Exam-Style' };
+
+function totalFor(levelData){
+  return levelData.groups.reduce(function(sum,g){ return sum + g.questions.length; }, 0);
+}
+var TOTALS = {};
+DATA.forEach(function(level){ TOTALS[level.key] = totalFor(level); });
+
+var state = {
+  running:false,
+  startTime:null,
+  elapsedMs:0,
+  timerHandle:null,
+  score:{},
+  answered:{},
+  groupStats:{}
+};
+DATA.forEach(function(level){ state.score[level.key] = 0; state.answered[level.key] = 0; });
+
+/* ---------- render test area ---------- */
+function renderTest(){
+  var testArea = document.getElementById('testArea');
+  var html = '';
+  DATA.forEach(function(level){
+    var th = THEMES[level.key];
+    html += '<section class="part" style="--accent:'+th.accent+';--accent2:'+th.accent2+';--tint:'+th.tint+';">';
+    html += '<div class="part-head"><h2>'+level.title+'</h2><p>'+level.sub+'</p></div>';
+    html += '<div class="part-body">';
+    var qCounter = 0;
+    level.groups.forEach(function(group, gIdx){
+      var gKey = level.key+'-'+gIdx;
+      state.groupStats[gKey] = {answered:0, correct:0, total:group.questions.length, label:group.label};
+      html += '<div class="group-title">'+group.label+'</div>';
+      group.questions.forEach(function(qObj, qIdx){
+        qCounter++;
+        var id = level.key+'-'+gIdx+'-'+qIdx;
+        html += '<div class="qcard">';
+        html += '<div class="qhead"><span class="qnum">Q'+qCounter+'</span><span class="qtext">'+qObj.q+'</span></div>';
+        html += '<div class="opts" id="opts-'+id+'">';
+        qObj.opts.forEach(function(optHTML, oIdx){
+          html += '<button type="button" class="opt" data-id="'+id+'" data-opt="'+oIdx+'">'
+                + '<span class="oletter">'+OPT_LETTERS[oIdx]+'</span><span class="otext">'+optHTML+'</span></button>';
+        });
+        html += '</div></div>';
+      });
+    });
+    html += '</div></section>';
+  });
+  testArea.innerHTML = html;
+
+  testArea.querySelectorAll('.opt').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      pickOption(btn.dataset.id, parseInt(btn.dataset.opt,10));
+    });
+  });
+}
+
+function findQuestion(id){
+  var parts = id.split('-');
+  var levelKey = parts[0], gIdx = parseInt(parts[1],10), qIdx = parseInt(parts[2],10);
+  var level = DATA.find(function(l){ return l.key===levelKey; });
+  return { level:level, group:level.groups[gIdx], qObj:level.groups[gIdx].questions[qIdx], gKey:levelKey+'-'+gIdx };
+}
+
+function pickOption(id, oIdx){
+  var optsWrap = document.getElementById('opts-'+id);
+  if (optsWrap.classList.contains('locked')) return;
+  var found = findQuestion(id);
+  var buttons = optsWrap.querySelectorAll('.opt');
+  var correctIdx = found.qObj.correct;
+  var isCorrect = (oIdx === correctIdx);
+
+  buttons[oIdx].classList.add('chosen', isCorrect ? 'correct' : 'incorrect');
+  if (!isCorrect){ buttons[correctIdx].classList.add('reveal-correct'); }
+  optsWrap.classList.add('locked');
+
+  var levelKey = found.level.key;
+  state.answered[levelKey]++;
+  state.groupStats[found.gKey].answered++;
+  if (isCorrect){ state.score[levelKey]++; state.groupStats[found.gKey].correct++; }
+
+  updateScoreDisplay();
+}
+
+var TB_ID = { formula:'tbFormula', core:'tbCore', ext:'tbExt', exam:'tbExam' };
+function updateScoreDisplay(){
+  Object.keys(TB_ID).forEach(function(key){
+    document.getElementById(TB_ID[key]).textContent = state.score[key] + '/' + TOTALS[key];
+  });
+}
+
+/* ---------- stopwatch ---------- */
+function formatElapsed(ms){
+  var totalSec = Math.floor(ms/1000);
+  var mm = Math.floor(totalSec/60);
+  var ss = totalSec % 60;
+  return mm + ':' + (ss<10 ? '0'+ss : ss);
+}
+function tickTimer(){
+  state.elapsedMs = Date.now() - state.startTime;
+  document.getElementById('tbTimer').textContent = formatElapsed(state.elapsedMs);
+}
+
+/* ---------- start / finish ---------- */
+function startTest(){
+  renderTest();
+  document.getElementById('startScreen').style.display = 'none';
+  document.getElementById('testArea').style.display = 'block';
+  document.getElementById('tbTimerWrap').style.display = 'flex';
+  document.getElementById('tbFormulaWrap').style.display = 'flex';
+  document.getElementById('tbCoreWrap').style.display = 'flex';
+  document.getElementById('tbExtWrap').style.display = 'flex';
+  document.getElementById('tbExamWrap').style.display = 'flex';
+  document.getElementById('finishBtn').style.display = 'inline-block';
+  updateScoreDisplay();
+
+  state.running = true;
+  state.startTime = Date.now();
+  state.timerHandle = setInterval(tickTimer, 250);
+  tickTimer();
+}
+
+function finishTest(){
+  if (state.running){
+    clearInterval(state.timerHandle);
+    state.elapsedMs = Date.now() - state.startTime;
+    document.getElementById('tbTimer').textContent = formatElapsed(state.elapsedMs);
+    state.running = false;
+  }
+  document.getElementById('finishBtn').disabled = true;
+
+  var name = document.getElementById('studentName').value.trim();
+  var summary = document.getElementById('summaryArea');
+  var totalScore = 0, totalQ = 0, totalAnswered = 0;
+  DATA.forEach(function(level){
+    totalScore += state.score[level.key];
+    totalQ += TOTALS[level.key];
+    totalAnswered += state.answered[level.key];
+  });
+  var unanswered = totalQ - totalAnswered;
+
+  var rows = '';
+  Object.keys(state.groupStats).forEach(function(key){
+    var st = state.groupStats[key];
+    var levelKey = key.split('-')[0];
+    var accent = THEMES[levelKey].accent;
+    var pct = Math.round((st.correct/st.total)*100);
+    rows += '<div class="pb-row">'
+      + '<div class="pb-name">'+st.label.replace(/<[^>]+>/g,'')+'</div>'
+      + '<div class="pb-bar"><div class="pb-fill" style="width:'+pct+'%;background:'+accent+';"></div></div>'
+      + '<div class="pb-score">'+st.correct+'/'+st.total+'</div>'
+      + '</div>';
+  });
+
+  var levelStats = DATA.map(function(level){
+    return '<div class="summary-stat"><div class="num">'+state.score[level.key]+'/'+TOTALS[level.key]+'</div><div class="lab">'+LEVEL_LABELS[level.key]+'</div></div>';
+  }).join('');
+
+  summary.innerHTML =
+    '<div class="summary">'
+    + '<h2>Test Complete'+(name ? ' &mdash; ' + name : '')+'</h2>'
+    + '<p class="subtxt">'+(unanswered>0 ? unanswered+' question(s) left unanswered.' : 'All questions answered.')+'</p>'
+    + '<div class="summary-grid">'
+    +   levelStats
+    +   '<div class="summary-stat"><div class="num">'+totalScore+'/'+totalQ+'</div><div class="lab">Total Score</div></div>'
+    +   '<div class="summary-stat"><div class="num">'+Math.round((totalScore/totalQ)*100)+'%</div><div class="lab">Accuracy</div></div>'
+    +   '<div class="summary-stat"><div class="num">'+formatElapsed(state.elapsedMs)+'</div><div class="lab">Time Taken</div></div>'
+    + '</div>'
+    + '<div class="part-breakdown">'+rows+'</div>'
+    + '</div>';
+  summary.style.display = 'block';
+  summary.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+document.getElementById('startBtn').addEventListener('click', startTest);
+document.getElementById('finishBtn').addEventListener('click', finishTest);
+</script>
+</body>
+</html>
