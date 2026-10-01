@@ -25,8 +25,8 @@
   --exam2:#FFA726;
 }
 *{box-sizing:border-box;}
-html,body{
-  margin:0;padding:0;color:var(--ink);font-family:'Segoe UI',system-ui,Arial,sans-serif;
+body{
+  margin:0;color:var(--ink);font-family:'Segoe UI',system-ui,Arial,sans-serif;
   background:
     radial-gradient(circle at 12% 0%, #f2ecff 0%, transparent 42%),
     radial-gradient(circle at 88% 8%, #e4f5ff 0%, transparent 38%),
@@ -37,7 +37,7 @@ h1,h2,h3{font-family:'Segoe UI',system-ui,Arial,sans-serif;}
 
 /* ---------- Sticky top bar ---------- */
 .topbar{
-  position:sticky;top:0;z-index:80;background:#fff;border-bottom:1px solid var(--card-border);
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:80;background:#fff;border-bottom:1px solid var(--card-border);
   box-shadow:0 2px 10px rgba(20,20,40,.06);
 }
 .topbar-inner{
@@ -67,8 +67,8 @@ h1,h2,h3{font-family:'Segoe UI',system-ui,Arial,sans-serif;}
 /* ---------- Layout ---------- */
 .wrap{max-width:960px;margin:0 auto;padding:22px 18px 60px;position:relative;}
 
-/* ---------- Floating exponent decoration ---------- */
-.fx-bg{position:absolute;top:0;left:0;right:0;height:520px;overflow:hidden;pointer-events:none;z-index:0;}
+/* ---------- Floating exponent decoration (spans the whole page, not just the header) ---------- */
+.fx-bg{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0;}
 .fx-sym{
   position:absolute;bottom:-60px;font-weight:800;color:rgba(124,77,255,.14);
   animation:fxFloat linear infinite;user-select:none;
@@ -77,9 +77,9 @@ h1,h2,h3{font-family:'Segoe UI',system-ui,Arial,sans-serif;}
   0%{transform:translateY(0) rotate(0deg);opacity:0;}
   8%{opacity:1;}
   92%{opacity:1;}
-  100%{transform:translateY(-560px) rotate(18deg);opacity:0;}
+  100%{transform:translateY(-130vh) rotate(18deg);opacity:0;}
 }
-.sc-brand-row, .sc-grid, .start-card{position:relative;z-index:1;}
+.sc-brand-row, .sc-grid, .start-card, #testArea, #summaryArea{position:relative;z-index:1;}
 
 /* ---------- Start screen ---------- */
 @keyframes scBrandFloat{
@@ -357,7 +357,7 @@ var DATA = [
   groups:[
     { label:'Complete the Law', questions:[
       { q:powHTML('a','m')+' &times; '+powHTML('a','n')+' = ?',
-        opts:[powHTML('a','m+n'),powHTML('a','m&minus;n'),powHTML('a','mn'),powHTML('a','m/n')], correct:0 },
+        opts:[powHTML('a','m&minus;n'),powHTML('a','mn'),powHTML('a','m/n'),powHTML('a','m+n')], correct:3 },
       { q:powHTML('a','m')+' &divide; '+powHTML('a','n')+' = ?',
         opts:[powHTML('a','m&minus;n'),powHTML('a','m+n'),powHTML('a','mn'),powHTML('a','n&minus;m')], correct:0 },
       { q:'('+powHTML('a','m')+')<sup>n</sup> = ?',
@@ -464,6 +464,45 @@ var DATA = [
   ]
 }
 ];
+
+/* Place the correct answer at a target slot (0-3), shuffling the wrong ones into the rest. */
+function placeCorrectAt(qObj, targetIdx){
+  var correctOpt = qObj.opts[qObj.correct];
+  var others = qObj.opts.filter(function(_, i){ return i !== qObj.correct; });
+  for (var i = others.length - 1; i > 0; i--){
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = others[i]; others[i] = others[j]; others[j] = tmp;
+  }
+  var newOpts = []; var oi = 0;
+  for (var i = 0; i < qObj.opts.length; i++){
+    newOpts.push(i === targetIdx ? correctOpt : others[oi++]);
+  }
+  qObj.opts = newOpts;
+  qObj.correct = targetIdx;
+}
+/* Build a correct-answer-slot sequence, in on-page question order, with no letter
+   repeating three times in a row anywhere in the test (kills "first 3 are all A" and
+   any other run, not just the start). */
+function assignVariedSlots(n, numOpts){
+  var seq = [];
+  for (var i = 0; i < n; i++){
+    var forbidden = (i >= 2 && seq[i-1] === seq[i-2]) ? seq[i-1] : -1;
+    var choices = [];
+    for (var k = 0; k < numOpts; k++){ if (k !== forbidden) choices.push(k); }
+    seq.push(choices[Math.floor(Math.random() * choices.length)]);
+  }
+  return seq;
+}
+(function enforceVariedCorrectPositions(){
+  var flat = [];
+  DATA.forEach(function(level){
+    level.groups.forEach(function(group){
+      group.questions.forEach(function(q){ flat.push(q); });
+    });
+  });
+  var slots = assignVariedSlots(flat.length, 4);
+  flat.forEach(function(q, i){ placeCorrectAt(q, slots[i]); });
+})();
 
 var OPT_LETTERS = ['A','B','C','D'];
 var LEVEL_LABELS = { formula:'Formula', core:'Core', ext:'Extended', exam:'Exam-Style' };
