@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Adding Mixed Numbers — Practice Test</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root{
+  --ink:#22252b;
+  --page-bg:#f7f8fb;
+  --muted:#5c6470;
+  --card-border:#e6e8ee;
+  --green:#2ECC71;
+  --green-dark:#1e9e57;
+  --red:#E5484D;
+  --red-dark:#c23237;
+  --accent:#D81B60;
+  --accent2:#EC407A;
+  --tint:#FDE9F0;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;padding:0;color:var(--ink);font-family:'Segoe UI',system-ui,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 12% 0%, #fdeaf1 0%, transparent 42%),
+    radial-gradient(circle at 88% 8%, #fff3e6 0%, transparent 38%),
+    var(--page-bg);
+  overflow-x:hidden;
+}
+h1,h2,h3{font-family:'Segoe UI',system-ui,Arial,sans-serif;}
+
+/* ---------- Sticky top bar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:80;background:#fff;border-bottom:1px solid var(--card-border);
+  box-shadow:0 2px 10px rgba(20,20,40,.06);
+}
+.topbar-inner{
+  max-width:860px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+}
+.tb-title{font-weight:800;font-size:1.02rem;color:#2b2f38;white-space:nowrap;}
+.tb-title span{color:var(--accent);}
+.tb-spacer{flex:1;}
+.tb-stat{
+  display:flex;flex-direction:column;align-items:center;background:#f2f3f8;border-radius:10px;
+  padding:5px 14px;min-width:76px;
+}
+.tb-stat .lab{font-size:.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
+.tb-stat .val{font-size:1.02rem;font-weight:800;color:#2b2f38;font-variant-numeric:tabular-nums;}
+.tb-stat.timer .val{color:#1E88E5;}
+.tb-stat.score .val{color:var(--accent);}
+.tb-finish-btn{
+  background:#2b2f38;color:#fff;border:none;padding:9px 16px;border-radius:9px;font-weight:700;
+  font-size:.82rem;cursor:pointer;white-space:nowrap;
+}
+.tb-finish-btn:hover{background:#181b21;}
+.tb-finish-btn:disabled{opacity:.4;cursor:not-allowed;}
+
+/* ---------- Layout ---------- */
+.wrap{max-width:860px;margin:0 auto;padding:22px 18px 60px;position:relative;}
+
+/* ---------- Floating decoration (spans the whole page, not just the header) ---------- */
+.fx-bg{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0;}
+.fx-sym{
+  position:absolute;bottom:-60px;font-weight:800;color:rgba(216,27,96,.12);
+  animation:fxFloat linear infinite;user-select:none;
+}
+@keyframes fxFloat{
+  0%{transform:translateY(0) rotate(0deg);opacity:0;}
+  8%{opacity:1;}
+  92%{opacity:1;}
+  100%{transform:translateY(-130vh) rotate(14deg);opacity:0;}
+}
+.sc-brand-row, .sc-grid, .start-card, #testArea, #summaryArea{position:relative;z-index:1;}
+
+/* ---------- Start screen ---------- */
+@keyframes scBrandFloat{
+  0%,100%{transform:translateY(0) rotate(0deg);}
+  50%{transform:translateY(-6px) rotate(-3deg);}
+}
+@keyframes scBrandPulse{
+  0%,100%{box-shadow:0 10px 22px rgba(216,27,96,.3);}
+  50%{box-shadow:0 14px 30px rgba(255,160,0,.32);}
+}
+.sc-brand-row{display:flex;align-items:center;gap:16px;margin-bottom:24px;}
+.sc-brand-mark{
+  width:58px;height:58px;border-radius:16px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+  font-size:1.7rem;background:linear-gradient(135deg,var(--accent),#FFA000);
+  animation:scBrandFloat 4s ease-in-out infinite, scBrandPulse 4s ease-in-out infinite;
+}
+.sc-brand-text h1{margin:0 0 4px;font-size:1.6rem;font-weight:800;color:#22252b;}
+.sc-brand-text p{margin:0;color:var(--muted);font-size:.9rem;line-height:1.55;max-width:620px;}
+
+.sc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:20px;perspective:1200px;}
+
+@keyframes scCardIn{from{opacity:0;transform:translateY(20px) scale(.96);}to{opacity:1;transform:translateY(0) scale(1);}}
+@keyframes scBadgeFloat{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-4px) rotate(-3deg);}}
+
+.sc-card{
+  position:relative;display:flex;align-items:flex-start;gap:12px;border-radius:18px;padding:16px;
+  background:linear-gradient(150deg,var(--tint-a) 0%,var(--tint-b) 100%);
+  box-shadow:0 8px 0 -3px var(--tint-b),0 12px 26px rgba(var(--shadow-rgb),.16);
+  transform-style:preserve-3d;transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s ease;
+  animation:scCardIn .5s cubic-bezier(.2,.8,.2,1) both;
+}
+.sc-grid .sc-card:nth-child(1){animation-delay:.05s;}
+.sc-grid .sc-card:nth-child(2){animation-delay:.12s;}
+.sc-grid .sc-card:nth-child(3){animation-delay:.19s;}
+.sc-grid .sc-card:nth-child(4){animation-delay:.26s;}
+
+.sc-card:hover{
+  transform:translateY(-6px) rotateX(4deg) scale(1.015);
+  box-shadow:0 14px 0 -4px var(--tint-b),0 20px 32px rgba(var(--shadow-rgb),.24);
+}
+.sc-badge{
+  flex:0 0 auto;width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:.92rem;color:#fff;background:linear-gradient(135deg,var(--badge1),var(--badge2));
+  box-shadow:0 6px 12px rgba(var(--shadow-rgb),.4);animation:scBadgeFloat 3.4s ease-in-out infinite;
+}
+.sc-card-body{display:flex;flex-direction:column;gap:3px;min-width:0;}
+.sc-card-title{font-weight:800;font-size:.86rem;color:#22252b;}
+.sc-card-desc{font-size:.72rem;color:#5c6470;line-height:1.4;}
+
+.start-card{
+  background:#fff;border-radius:16px;padding:24px 26px;box-shadow:0 2px 14px rgba(20,20,40,.08);
+  border:1px solid var(--card-border);
+}
+.start-card label{display:block;font-weight:700;font-size:.85rem;color:#2b2f38;margin-bottom:6px;}
+.start-card input[type=text]{
+  width:100%;max-width:360px;padding:11px 14px;border-radius:10px;border:1.5px solid #d3d8e2;
+  font-size:.95rem;font-family:inherit;
+}
+.start-card input[type=text]:focus{outline:none;border-color:var(--accent);}
+.start-card .hint{font-size:.78rem;color:var(--muted);margin:8px 0 18px;}
+.start-btn{
+  background:linear-gradient(120deg,var(--accent),#FFA000);color:#fff;border:none;padding:12px 28px;border-radius:999px;
+  font-size:.9rem;font-weight:700;cursor:pointer;letter-spacing:.02em;box-shadow:0 4px 12px rgba(216,27,96,.28);
+  transition:filter .15s ease, transform .05s ease;
+}
+.start-btn:hover{filter:brightness(1.07);}
+.start-btn:active{transform:scale(.97);}
+
+/* ---------- Groups ---------- */
+.part{
+  margin:30px 0;border-radius:16px;overflow:hidden;border:1.5px solid var(--card-border);background:#fff;
+  box-shadow:0 1px 6px rgba(20,20,40,.05);
+}
+.part-head{
+  padding:14px 22px;color:#fff;background:linear-gradient(120deg,var(--accent),var(--accent2));
+}
+.part-head h2{margin:0;font-size:1.02rem;font-weight:800;}
+.part-body{padding:18px 22px 22px;background:linear-gradient(180deg,var(--tint) 0%, #fff 110px);}
+
+.qcard{
+  background:#fff;border:1.5px solid var(--card-border);border-left:5px solid var(--accent);
+  border-radius:12px;padding:15px 18px;margin:14px 0;
+}
+.qcard .qhead{display:flex;align-items:baseline;gap:8px;margin-bottom:10px;}
+.qcard .qnum{
+  display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:26px;border-radius:50%;
+  background:var(--accent);color:#fff;font-weight:800;font-size:.78rem;flex:0 0 auto;
+}
+.qcard .qtext{font-size:.95rem;line-height:1.7;font-weight:600;color:#2b2f38;}
+
+.opts{display:flex;flex-direction:column;gap:8px;margin-top:4px;}
+.opt{
+  display:flex;align-items:center;gap:10px;text-align:left;background:#fbfbfd;border:1.5px solid #dfe3ec;
+  border-radius:10px;padding:9px 14px;font-size:.9rem;font-family:inherit;cursor:pointer;color:#2b2f38;
+  transition:border-color .12s, background .12s;
+}
+.opt:hover{border-color:var(--accent);background:#fff;}
+.opt .oletter{
+  display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;
+  background:#eceff4;color:var(--accent);font-weight:800;font-size:.74rem;flex:0 0 auto;
+}
+.opt.chosen.correct{background:var(--green);border-color:var(--green-dark);color:#fff;}
+.opt.chosen.correct .oletter{background:rgba(255,255,255,.28);color:#fff;}
+.opt.chosen.incorrect{background:var(--red);border-color:var(--red-dark);color:#fff;}
+.opt.chosen.incorrect .oletter{background:rgba(255,255,255,.28);color:#fff;}
+.opt.reveal-correct{border-color:var(--green-dark);border-width:2px;background:#eafaf0;}
+.opts.locked .opt{cursor:default;}
+.opts.locked .opt:not(.chosen):not(.reveal-correct):hover{border-color:#dfe3ec;background:#fbfbfd;}
+
+/* mixed number / fraction rendering */
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;line-height:1.02;text-align:center;margin:0 2px;font-size:.86em;}
+.frac .num{border-bottom:1.6px solid currentColor;padding:0 4px 1px;}
+.frac .den{padding:1px 4px 0;}
+.mixedno{display:inline-flex;align-items:center;gap:1px;vertical-align:middle;}
+.mixedno .whole{margin-right:1px;font-weight:700;}
+
+/* ---------- Summary ---------- */
+.summary{
+  background:#fff;border-radius:16px;padding:26px 28px;margin:26px 0;border:1.5px solid var(--card-border);
+  box-shadow:0 2px 14px rgba(20,20,40,.08);
+}
+.summary h2{margin:0 0 4px;font-size:1.3rem;}
+.summary .subtxt{color:var(--muted);font-size:.88rem;margin:0 0 18px;}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px;}
+.summary-stat{background:#f7f8fb;border-radius:12px;padding:14px;text-align:center;}
+.summary-stat .num{font-size:1.6rem;font-weight:800;color:#2b2f38;}
+.summary-stat .lab{font-size:.72rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.03em;margin-top:2px;}
+.part-breakdown{display:flex;flex-direction:column;gap:6px;}
+.pb-row{display:flex;align-items:center;gap:10px;font-size:.85rem;}
+.pb-row .pb-name{flex:1;color:#2b2f38;font-weight:600;}
+.pb-row .pb-bar{flex:2;height:9px;border-radius:5px;background:#eceff4;overflow:hidden;}
+.pb-row .pb-fill{height:100%;background:var(--accent);}
+.pb-row .pb-score{width:54px;text-align:right;font-weight:700;color:var(--muted);}
+
+footer.end{text-align:center;padding:30px 10px;color:#a0a6b0;font-size:.8rem;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="tb-title">➕ <span>Adding Mixed Numbers</span></div>
+    <div class="tb-spacer"></div>
+    <div class="tb-stat timer" id="tbTimerWrap" style="display:none;">
+      <div class="lab">Time</div>
+      <div class="val" id="tbTimer">0:00</div>
+    </div>
+    <div class="tb-stat score" id="tbScoreWrap" style="display:none;">
+      <div class="lab">Score</div>
+      <div class="val" id="tbScore">0/10</div>
+    </div>
+    <button class="tb-finish-btn" id="finishBtn" style="display:none;">Finish Test</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="fx-bg" id="fxBg"></div>
+
+  <!-- ============ START SCREEN ============ -->
+  <div id="startScreen">
+    <div class="sc-brand-row">
+      <div class="sc-brand-mark">➕</div>
+      <div class="sc-brand-text">
+        <h1>Adding Mixed Numbers — Practice Test</h1>
+        <p>10 questions on adding mixed numbers &mdash; same denominators, different denominators, regrouping (carrying) when the fraction part totals a whole or more, and two real-world word problems. Instant feedback as you answer, timed from the moment you press Start.</p>
+      </div>
+    </div>
+
+    <div class="sc-grid">
+      <div class="sc-card" style="--tint-a:#fde9f0;--tint-b:#fbd3e2;--badge1:#EC407A;--badge2:#D81B60;--shadow-rgb:216,27,96;">
+        <span class="sc-badge">1</span>
+        <span class="sc-card-body"><span class="sc-card-title">Same Denominator</span>
+        <span class="sc-card-desc">Including when the fractions add past a whole.</span></span>
+      </div>
+      <div class="sc-card" style="--tint-a:#fff2e1;--tint-b:#ffe3bf;--badge1:#FFA726;--badge2:#FB8C00;--shadow-rgb:251,140,0;">
+        <span class="sc-badge">2</span>
+        <span class="sc-card-body"><span class="sc-card-title">Different Denominators</span>
+        <span class="sc-card-desc">Find the common denominator first.</span></span>
+      </div>
+      <div class="sc-card" style="--tint-a:#e3f4f1;--tint-b:#cceae4;--badge1:#26A69A;--badge2:#00897B;--shadow-rgb:0,137,123;">
+        <span class="sc-badge">3</span>
+        <span class="sc-card-body"><span class="sc-card-title">Word Problems</span>
+        <span class="sc-card-desc">Distances and recipe amounts.</span></span>
+      </div>
+      <div class="sc-card" style="--tint-a:#e9f3fd;--tint-b:#d3e8fb;--badge1:#42A5F5;--badge2:#1E88E5;--shadow-rgb:30,136,229;">
+        <span class="sc-badge">4</span>
+        <span class="sc-card-body"><span class="sc-card-title">Challenge</span>
+        <span class="sc-card-desc">Bigger numbers, three terms.</span></span>
+      </div>
+    </div>
+
+    <div class="start-card">
+      <label for="studentName">Student name</label>
+      <input type="text" id="studentName" placeholder="Type your name here">
+      <div class="hint">The stopwatch starts as soon as you press Start. Give answers as a mixed number in its simplest form (e.g. 4 1/2, not 4 2/4).</div>
+      <button class="start-btn" id="startBtn">▶ Start Test</button>
+    </div>
+  </div>
+
+  <!-- ============ TEST AREA ============ -->
+  <div id="testArea" style="display:none;"></div>
+
+  <!-- ============ SUMMARY ============ -->
+  <div id="summaryArea" style="display:none;"></div>
+
+  <footer class="end">Adding Mixed Numbers — Practice Test · Teacher Tools</footer>
+</div>
+
+<script>
+/* ---------- rendering helpers ---------- */
+function frac(n,d){ return '<span class="frac"><span class="num">'+n+'</span><span class="den">'+d+'</span></span>'; }
+function mixed(w,n,d){ return '<span class="mixedno"><span class="whole">'+w+'</span>'+frac(n,d)+'</span>'; }
+
+/* ---------- floating background symbols ---------- */
+var FX_SYMS = [mixed(2,1,2), mixed(1,3,4), mixed(3,1,3), '+', mixed(5,5,8), '=', mixed(4,2,5), '+'];
+(function renderFx(){
+  var host = document.getElementById('fxBg');
+  var html = '';
+  for (var i=0;i<14;i++){
+    var left = Math.random()*94;
+    var dur = 9 + Math.random()*10;
+    var delay = Math.random()*12;
+    var size = 1.1 + Math.random()*1.5;
+    var sym = FX_SYMS[i % FX_SYMS.length];
+    html += '<span class="fx-sym" style="left:'+left+'%;font-size:'+size+'rem;animation-duration:'+dur+'s;animation-delay:-'+delay+'s;">'+sym+'</span>';
+  }
+  host.innerHTML = html;
+})();
+
+/* ---------- theme colours per group ---------- */
+var THEMES = [
+  {accent:'#D81B60', accent2:'#EC407A', tint:'#FDE9F0'},
+  {accent:'#FB8C00', accent2:'#FFA726', tint:'#FFF2E1'},
+  {accent:'#00897B', accent2:'#26A69A', tint:'#E3F4F1'},
+  {accent:'#1E88E5', accent2:'#42A5F5', tint:'#E9F3FD'}
+];
+
+/* ---------- question data ---------- */
+var GROUPS = [
+{
+  title:'Same Denominator',
+  questions:[
+    { q:'Work out: '+mixed(2,1,5)+' + '+mixed(3,2,5), opts:[mixed(5,2,5),mixed(6,3,5),mixed(5,3,5),mixed(5,3,10)], correct:2 },
+    { q:'Work out: '+mixed(2,3,5)+' + '+mixed(1,4,5), opts:[mixed(3,7,5),mixed(4,2,5),mixed(4,1,5),mixed(3,2,5)], correct:1 },
+    { q:'Work out: '+mixed(4,2,3)+' + '+mixed(5,2,3), opts:[mixed(9,4,3),mixed(10,4,3),mixed(9,1,3),mixed(10,1,3)], correct:3 }
+  ]
+},
+{
+  title:'Different Denominators',
+  questions:[
+    { q:'Work out: '+mixed(1,1,4)+' + '+mixed(2,1,8), opts:[mixed(3,3,8),mixed(3,1,4),mixed(3,3,12),mixed(4,3,8)], correct:0 },
+    { q:'Work out: '+mixed(2,3,4)+' + '+mixed(1,5,8), opts:[mixed(3,11,8),mixed(4,11,8),mixed(4,3,8),mixed(3,3,8)], correct:2 },
+    { q:'Work out: '+mixed(3,2,3)+' + '+mixed(2,5,6), opts:[mixed(5,9,6),mixed(6,9,6),mixed(5,1,2),mixed(6,1,2)], correct:3 }
+  ]
+},
+{
+  title:'Word Problems',
+  questions:[
+    { q:'Maria walked '+mixed(2,1,2)+' km in the morning and '+mixed(1,3,4)+' km in the evening. What is her total distance for the day?',
+      opts:[mixed(3,5,4)+' km',mixed(4,1,4)+' km',mixed(4,5,4)+' km',mixed(3,1,4)+' km'], correct:1 },
+    { q:'A recipe needs '+mixed(1,1,3)+' cups of sugar for the cookies and '+mixed(2,2,3)+' cups for the cake. How much sugar is needed in total?',
+      opts:['4 cups',mixed(3,3,3)+' cups',mixed(4,1,3)+' cups',mixed(3,2,3)+' cups'], correct:0 }
+  ]
+},
+{
+  title:'Challenge',
+  questions:[
+    { q:'Work out: '+mixed(5,7,8)+' + '+mixed(3,5,8), opts:[mixed(8,12,8),mixed(9,12,8),mixed(8,1,2),mixed(9,1,2)], correct:3 },
+    { q:'Work out: '+mixed(1,1,2)+' + '+mixed(2,1,4)+' + '+mixed(1,1,4), opts:[mixed(4,1,2),mixed(5,1,4),'5',mixed(4,3,4)], correct:2 }
+  ]
+}
+];
+
+/* Place the correct answer at a target slot (0-3), shuffling the wrong ones into the rest. */
+function placeCorrectAt(qObj, targetIdx){
+  var correctOpt = qObj.opts[qObj.correct];
+  var others = qObj.opts.filter(function(_, i){ return i !== qObj.correct; });
+  for (var i = others.length - 1; i > 0; i--){
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = others[i]; others[i] = others[j]; others[j] = tmp;
+  }
+  var newOpts = []; var oi = 0;
+  for (var i = 0; i < qObj.opts.length; i++){
+    newOpts.push(i === targetIdx ? correctOpt : others[oi++]);
+  }
+  qObj.opts = newOpts;
+  qObj.correct = targetIdx;
+}
+/* Build a correct-answer-slot sequence, in on-page question order, with no letter
+   repeating three times in a row anywhere in the test. */
+function assignVariedSlots(n, numOpts){
+  var seq = [];
+  for (var i = 0; i < n; i++){
+    var forbidden = (i >= 2 && seq[i-1] === seq[i-2]) ? seq[i-1] : -1;
+    var choices = [];
+    for (var k = 0; k < numOpts; k++){ if (k !== forbidden) choices.push(k); }
+    seq.push(choices[Math.floor(Math.random() * choices.length)]);
+  }
+  return seq;
+}
+(function enforceVariedCorrectPositions(){
+  var flat = [];
+  GROUPS.forEach(function(group){
+    group.questions.forEach(function(q){ flat.push(q); });
+  });
+  var slots = assignVariedSlots(flat.length, 4);
+  flat.forEach(function(q, i){ placeCorrectAt(q, slots[i]); });
+})();
+
+var OPT_LETTERS = ['A','B','C','D'];
+var TOTAL_QUESTIONS = GROUPS.reduce(function(sum,g){ return sum + g.questions.length; }, 0);
+
+var state = {
+  running:false,
+  startTime:null,
+  elapsedMs:0,
+  timerHandle:null,
+  totalAnswered:0,
+  totalCorrect:0,
+  groupStats: GROUPS.map(function(g){ return {answered:0, correct:0, total:g.questions.length, title:g.title}; })
+};
+
+/* ---------- render test area ---------- */
+function renderTest(){
+  var testArea = document.getElementById('testArea');
+  var html = '';
+  var qCounter = 0;
+  GROUPS.forEach(function(group, gIdx){
+    var th = THEMES[gIdx % THEMES.length];
+    html += '<section class="part" style="--accent:'+th.accent+';--accent2:'+th.accent2+';--tint:'+th.tint+';">';
+    html += '<div class="part-head"><h2>'+group.title+'</h2></div>';
+    html += '<div class="part-body">';
+    group.questions.forEach(function(qObj, qIdx){
+      qCounter++;
+      var id = gIdx+'-'+qIdx;
+      html += '<div class="qcard">';
+      html += '<div class="qhead"><span class="qnum">Q'+qCounter+'</span><span class="qtext">'+qObj.q+'</span></div>';
+      html += '<div class="opts" id="opts-'+id+'">';
+      qObj.opts.forEach(function(optHTML, oIdx){
+        html += '<button type="button" class="opt" data-gidx="'+gIdx+'" data-qidx="'+qIdx+'" data-opt="'+oIdx+'">'
+              + '<span class="oletter">'+OPT_LETTERS[oIdx]+'</span><span class="otext">'+optHTML+'</span></button>';
+      });
+      html += '</div></div>';
+    });
+    html += '</div></section>';
+  });
+  testArea.innerHTML = html;
+
+  testArea.querySelectorAll('.opt').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      pickOption(parseInt(btn.dataset.gidx,10), parseInt(btn.dataset.qidx,10), parseInt(btn.dataset.opt,10));
+    });
+  });
+}
+
+function pickOption(gIdx, qIdx, oIdx){
+  var id = gIdx+'-'+qIdx;
+  var optsWrap = document.getElementById('opts-'+id);
+  if (optsWrap.classList.contains('locked')) return;
+  var qObj = GROUPS[gIdx].questions[qIdx];
+  var buttons = optsWrap.querySelectorAll('.opt');
+  var correctIdx = qObj.correct;
+  var isCorrect = (oIdx === correctIdx);
+
+  buttons[oIdx].classList.add('chosen', isCorrect ? 'correct' : 'incorrect');
+  if (!isCorrect){ buttons[correctIdx].classList.add('reveal-correct'); }
+  optsWrap.classList.add('locked');
+
+  state.totalAnswered++;
+  state.groupStats[gIdx].answered++;
+  if (isCorrect){ state.totalCorrect++; state.groupStats[gIdx].correct++; }
+
+  updateScoreDisplay();
+}
+
+function updateScoreDisplay(){
+  document.getElementById('tbScore').textContent = state.totalCorrect + '/' + TOTAL_QUESTIONS;
+}
+
+/* ---------- stopwatch ---------- */
+function formatElapsed(ms){
+  var totalSec = Math.floor(ms/1000);
+  var mm = Math.floor(totalSec/60);
+  var ss = totalSec % 60;
+  return mm + ':' + (ss<10 ? '0'+ss : ss);
+}
+function tickTimer(){
+  state.elapsedMs = Date.now() - state.startTime;
+  document.getElementById('tbTimer').textContent = formatElapsed(state.elapsedMs);
+}
+
+/* ---------- start / finish ---------- */
+function startTest(){
+  renderTest();
+  document.getElementById('startScreen').style.display = 'none';
+  document.getElementById('testArea').style.display = 'block';
+  document.getElementById('tbTimerWrap').style.display = 'flex';
+  document.getElementById('tbScoreWrap').style.display = 'flex';
+  document.getElementById('finishBtn').style.display = 'inline-block';
+  updateScoreDisplay();
+
+  state.running = true;
+  state.startTime = Date.now();
+  state.timerHandle = setInterval(tickTimer, 250);
+  tickTimer();
+}
+
+function finishTest(){
+  if (state.running){
+    clearInterval(state.timerHandle);
+    state.elapsedMs = Date.now() - state.startTime;
+    document.getElementById('tbTimer').textContent = formatElapsed(state.elapsedMs);
+    state.running = false;
+  }
+  document.getElementById('finishBtn').disabled = true;
+
+  var name = document.getElementById('studentName').value.trim();
+  var summary = document.getElementById('summaryArea');
+  var unanswered = TOTAL_QUESTIONS - state.totalAnswered;
+
+  var rows = '';
+  GROUPS.forEach(function(group, gIdx){
+    var st = state.groupStats[gIdx];
+    var pct = Math.round((st.correct / st.total) * 100);
+    var accent = THEMES[gIdx % THEMES.length].accent;
+    rows += '<div class="pb-row">'
+      + '<div class="pb-name">'+group.title+'</div>'
+      + '<div class="pb-bar"><div class="pb-fill" style="width:'+pct+'%;background:'+accent+';"></div></div>'
+      + '<div class="pb-score">'+st.correct+'/'+st.total+'</div>'
+      + '</div>';
+  });
+
+  summary.innerHTML =
+    '<div class="summary">'
+    + '<h2>Test Complete'+(name ? ' &mdash; ' + name : '')+'</h2>'
+    + '<p class="subtxt">'+(unanswered>0 ? unanswered+' question(s) left unanswered.' : 'All questions answered.')+'</p>'
+    + '<div class="summary-grid">'
+    +   '<div class="summary-stat"><div class="num">'+state.totalCorrect+'/'+TOTAL_QUESTIONS+'</div><div class="lab">Score</div></div>'
+    +   '<div class="summary-stat"><div class="num">'+Math.round((state.totalCorrect/TOTAL_QUESTIONS)*100)+'%</div><div class="lab">Accuracy</div></div>'
+    +   '<div class="summary-stat"><div class="num">'+formatElapsed(state.elapsedMs)+'</div><div class="lab">Time Taken</div></div>'
+    + '</div>'
+    + '<div class="part-breakdown">'+rows+'</div>'
+    + '</div>';
+  summary.style.display = 'block';
+  summary.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+document.getElementById('startBtn').addEventListener('click', startTest);
+document.getElementById('finishBtn').addEventListener('click', finishTest);
+</script>
+</body>
+</html>
