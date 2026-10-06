@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>What Is an Exponent? — Index Notation &amp; Laws of Indices Quiz | The Concept Lab</title>
-<meta name="description" content="Watch What Is an Exponent? (Index Notation + the Laws of Indices) then test yourself with a 10-question quiz.">
+<meta name="description" content="A 10-question quiz on index notation (base/exponent) and the laws of indices.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Permanent+Marker&display=swap" rel="stylesheet">
@@ -60,45 +60,7 @@
   p{ margin:0 0 12px; max-width:62ch; }
   .lede{ font-size:18px; color:var(--ink-soft); }
 
-  /* ---------------- video ---------------- */
-  .video-wrap{
-    position:relative; width:100%; padding-top:56.25%;
-    border-radius:10px 16px 12px 18px/14px 9px 16px 11px;
-    overflow:hidden; box-shadow:5px 8px 0 var(--shadow); border:3px solid var(--ink);
-    background:#000;
-  }
-  .video-wrap iframe, .video-wrap #player{
-    position:absolute; inset:0; width:100%; height:100%; border:0;
-  }
-  .coming-soon{
-    position:relative; width:100%; padding-top:56.25%;
-    border-radius:10px 16px 12px 18px/14px 9px 16px 11px;
-    border:3px dashed var(--ink-soft); display:flex; align-items:center; justify-content:center;
-  }
-  .coming-soon > div{
-    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
-    text-align:center; padding:20px; color:var(--ink-soft);
-  }
-  .coming-soon strong{ font-family:'Permanent Marker',cursive; font-weight:400; color:var(--ink); font-size:20px; margin-bottom:6px; }
-
-  /* ---------------- lock notice ---------------- */
-  .lock-notice{
-    margin-top:22px; padding:16px 20px; border-radius:8px 14px 10px 16px/12px 8px 14px 10px;
-    background:var(--bg2); border:2.5px dashed var(--ink-soft);
-    display:flex; align-items:center; gap:14px;
-  }
-  .lock-notice svg{ flex:none; width:34px; height:34px; }
-  .lock-notice p{ margin:0; font-size:17px; color:var(--ink-soft); }
-  .lock-icon path{ fill:none; stroke:var(--ink-soft); stroke-width:4; stroke-linecap:round; stroke-linejoin:round; }
-  .lock-icon rect{ fill:none; stroke:var(--ink-soft); stroke-width:4; }
-
   /* ---------------- quiz ---------------- */
-  #quizSection{ transition:opacity .5s ease; }
-  #quizSection[hidden]{ display:none; }
-  .unlock-banner{
-    margin-bottom:24px; padding:12px 18px; border-radius:8px 14px 10px 16px/12px 8px 14px 10px;
-    background:var(--note-g); color:var(--note-g-ink); font-size:17px; display:inline-block;
-  }
   .quiz-q{ margin-top:26px; padding-top:26px; border-top:2px dashed var(--rule); }
   .quiz-q:first-of-type{ margin-top:0; padding-top:0; border-top:none; }
   .quiz-q p.qtext{ font-size:19px; margin-bottom:10px; }
@@ -139,36 +101,12 @@
   <header>
     <p class="eyebrow">The Concept Lab &middot; Practice Quiz &middot; Indices Series, Video 1</p>
     <h1>What Is an Exponent?</h1>
-    <p class="dek">Index Notation &amp; the Laws of Indices — watch the video, then test yourself below. The quiz unlocks automatically once the video finishes.</p>
+    <p class="dek">Index Notation &amp; the Laws of Indices — a 10-question check. Each answer is graded the moment you click it.</p>
   </header>
 
-  <section>
-    <h2><span class="hi">Watch first</span></h2>
-    <p class="lede">Finished the video already? Just let it play through to the end (or re-watch the last few seconds) and the quiz will unlock right below.</p>
-
-    <div class="video-wrap" id="videoWrap">
-      <div id="player"></div>
-    </div>
-
-    <div class="coming-soon" id="comingSoon" hidden>
-      <div>
-        <strong>Video coming soon</strong>
-        <span>Video 1 of the Indices series isn't published yet — check back once it's live on The Concept Lab.</span>
-      </div>
-    </div>
-
-    <div class="lock-notice" id="lockNotice">
-      <svg class="lock-icon" viewBox="0 0 34 34" aria-hidden="true">
-        <rect x="8" y="15" width="18" height="14" rx="3"/>
-        <path d="M12 15v-4a5 5 0 0 1 10 0v4"/>
-      </svg>
-      <p>Quiz is locked until you finish watching the video above.</p>
-    </div>
-  </section>
-
-  <section id="quizSection" hidden>
+  <section id="quizSection">
     <h2><span class="hi">Test yourself</span></h2>
-    <p class="unlock-banner">Nice — the video's done. Here's your 10-question check.</p>
+    <p class="lede">Pick an answer for each question below — you'll see right away whether it's correct, with a one-line explanation.</p>
 
     <div class="quiz-q" data-quiz data-explain="The exponent (index/power) tells you how many times to multiply the base by itself. The base here is 5.">
       <p class="qtext"><b>1.</b> In the expression 5&sup3;, what is the small raised number 3 called?</p>
@@ -258,7 +196,7 @@
       <p class="quiz-feedback"></p>
     </div>
 
-    <div class="quiz-q" data-quiz data-explain="The multiplication law only works by keeping the base exactly the same and adding the exponents: 2³ × 2⁴ = 2⁷ = 128 — never 4⁷. This is the #1 mistake highlighted in the video.">
+    <div class="quiz-q" data-quiz data-explain="The multiplication law only works by keeping the base exactly the same and adding the exponents: 2³ × 2⁴ = 2⁷ = 128 — never 4⁷. This is the #1 mistake students make.">
       <p class="qtext"><b>9.</b> A student simplifies 2&sup3; &times; 2&#8308; and writes the answer as 4&#8311;. What mistake did they make, and what is the correct answer?</p>
       <div class="quiz-opts">
         <button class="opt" data-correct="false">A. They added the exponents correctly — the answer is right</button>
@@ -295,47 +233,6 @@
 </div>
 
 <script>
-  // ============================= TODO — BEFORE THIS VIDEO GOES LIVE =============================
-  // Video 1 of the Indices series has NOT been uploaded to YouTube yet (as of 2026-10-02).
-  // This is a clearly-marked PLACEHOLDER — swap it for the real YouTube video ID the moment
-  // RN YouTube Manager publishes the video, then commit + push this one-line change.
-  var YOUTUBE_VIDEO_ID = "PLACEHOLDER_VIDEO_ID";
-  // ================================================================================================
-
-  function isPlaceholder(id){ return !id || id.indexOf("PLACEHOLDER") !== -1 || id.indexOf("REPLACE_WITH") !== -1; }
-
-  function revealQuiz(){
-    var quizSection = document.getElementById('quizSection');
-    var lockNotice = document.getElementById('lockNotice');
-    if (lockNotice) lockNotice.style.display = 'none';
-    if (quizSection.hidden){
-      quizSection.hidden = false;
-      quizSection.scrollIntoView({behavior:'smooth', block:'start'});
-    }
-  }
-
-  if (isPlaceholder(YOUTUBE_VIDEO_ID)){
-    document.getElementById('videoWrap').hidden = true;
-    document.getElementById('comingSoon').hidden = false;
-  } else {
-    window.onYouTubeIframeAPIReady = function(){
-      new YT.Player('player', {
-        videoId: YOUTUBE_VIDEO_ID,
-        playerVars: { rel: 0, modestbranding: 1 },
-        events: {
-          'onStateChange': function(event){
-            if (event.data === YT.PlayerState.ENDED){
-              revealQuiz();
-            }
-          }
-        }
-      });
-    };
-    var tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    document.head.appendChild(tag);
-  }
-
   // ---- quiz grading: each click is scored and revealed immediately, with a one-line explanation ----
   var totalQuestions = document.querySelectorAll('[data-quiz]').length;
   var answeredCount = 0, correctCount = 0;
@@ -364,7 +261,7 @@
           var scoreText = document.getElementById('scoreText');
           scoreTitle.textContent = correctCount === totalQuestions ? 'Perfect score!' : 'Quiz complete';
           scoreText.textContent = 'You scored ' + correctCount + ' / ' + totalQuestions + '.' +
-            (correctCount === totalQuestions ? ' You have index notation and the laws of indices down.' : ' Rewatch the video to review anything you missed, then you are ready for Video 2 (zero and negative exponents).');
+            (correctCount === totalQuestions ? ' You have index notation and the laws of indices down.' : ' Review anything you missed, then you are ready for Video 2 (zero and negative exponents).');
           scoreCard.hidden = false;
           scoreCard.scrollIntoView({behavior:'smooth', block:'center'});
         }
