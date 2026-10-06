@@ -104,30 +104,9 @@
 
   footer{ margin-top:60px; text-align:center; color:var(--ink-soft); font-size:15px; }
   footer a{ color:var(--ink-soft); }
-
-  /* ---------------- background music toggle ---------------- */
-  .music-toggle{
-    position:fixed; top:16px; right:16px; z-index:50;
-    display:flex; align-items:center; gap:8px;
-    background:var(--card); border:2.5px solid var(--ink);
-    border-radius:999px; padding:8px 14px 8px 12px;
-    box-shadow:3px 4px 0 var(--shadow);
-    cursor:pointer; font-family:'Kalam',cursive; font-size:14px; color:var(--ink);
-    -webkit-tap-highlight-color:transparent;
-  }
-  .music-toggle:hover{ background:var(--bg2); }
-  .music-toggle svg{ width:18px; height:18px; flex:none; }
-  .music-toggle .mt-label{ white-space:nowrap; }
-  @media (max-width:480px){ .music-toggle .mt-label{ display:none; } .music-toggle{ padding:10px; } }
 </style>
 </head>
 <body>
-<audio id="bgMusic" src="quiz_bg_music.mp3" loop preload="none"></audio>
-<button class="music-toggle" id="musicToggle" type="button" aria-pressed="false">
-  <svg id="musicIconOff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
-  <svg id="musicIconOn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" hidden><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
-  <span class="mt-label" id="musicLabel">Music: off</span>
-</button>
 <div class="page">
 
   <header>
@@ -141,7 +120,7 @@
     <p class="lede">Pick an answer for each question below — you'll see right away whether it's correct, with a one-line explanation.</p>
 
     <div class="quiz-q" data-quiz data-explain="Follow the pattern: 2³=8, 2²=4, 2¹=2 -- each step divides by 2. One more division (2÷2) gives 1, not 0.">
-      <p class="qtext"><b>1.</b> What is 2 to the power 0?</p>
+      <p class="qtext"><b>1.</b> What is 2&#8304;?</p>
       <div class="quiz-opts">
         <button class="opt" data-correct="false">A. 0</button>
         <button class="opt" data-correct="false">B. 2</button>
@@ -152,7 +131,7 @@
     </div>
 
     <div class="quiz-q" data-quiz data-explain="This is the zero index rule: a⁰ = 1, for any nonzero base a.">
-      <p class="qtext"><b>2.</b> Any nonzero number raised to the power 0 equals...</p>
+      <p class="qtext"><b>2.</b> For any nonzero base a, a&#8304; equals...</p>
       <div class="quiz-opts">
         <button class="opt" data-correct="true">A. 1</button>
         <button class="opt" data-correct="false">B. 0</button>
@@ -163,7 +142,7 @@
     </div>
 
     <div class="quiz-q" data-quiz data-explain="Any nonzero base to the power 0 is 1 -- it doesn't matter that the base is 9.">
-      <p class="qtext"><b>3.</b> What is 9 to the power 0?</p>
+      <p class="qtext"><b>3.</b> What is 9&#8304;?</p>
       <div class="quiz-opts">
         <button class="opt" data-correct="false">A. 0</button>
         <button class="opt" data-correct="false">B. 9</button>
@@ -174,7 +153,7 @@
     </div>
 
     <div class="quiz-q" data-quiz data-explain="Continuing the pattern past zero: 2⁰=1, divide by 2 once more gives 1/2 -- a fraction, not a negative number.">
-      <p class="qtext"><b>4.</b> What is 2 to the power -1?</p>
+      <p class="qtext"><b>4.</b> What is 2&#8315;&sup1;?</p>
       <div class="quiz-opts">
         <button class="opt" data-correct="false">A. -2</button>
         <button class="opt" data-correct="true">B. 1/2</button>
@@ -185,7 +164,7 @@
     </div>
 
     <div class="quiz-q" data-quiz data-explain="This is the #1 misconception. A negative exponent flips the base into a fraction (a⁻ⁿ = 1/aⁿ) -- the minus sign never carries over to make the answer negative.">
-      <p class="qtext"><b>5.</b> Does a negative exponent make the final answer a negative number?</p>
+      <p class="qtext"><b>5.</b> Does a&#8315;&#8319; (a negative exponent) make the final answer a negative number?</p>
       <div class="quiz-opts">
         <button class="opt" data-correct="true">A. No — it makes a fraction instead</button>
         <button class="opt" data-correct="false">B. Yes, always</button>
@@ -196,7 +175,7 @@
     </div>
 
     <div class="quiz-q" data-quiz data-explain="7⁻² = 1/7² = 1/49.">
-      <p class="qtext"><b>6.</b> What is 7 to the power -2?</p>
+      <p class="qtext"><b>6.</b> What is 7&#8315;&sup2;?</p>
       <div class="quiz-opts">
         <button class="opt" data-correct="false">A. -49</button>
         <button class="opt" data-correct="false">B. -14</button>
@@ -207,7 +186,7 @@
     </div>
 
     <div class="quiz-q" data-quiz data-explain="4⁻² = 1/4² = 1/16. A common mistake is writing -16 by letting the minus sign 'leak' into the answer -- but the sign only flips the base to a fraction.">
-      <p class="qtext"><b>7.</b> What is 4 to the power -2?</p>
+      <p class="qtext"><b>7.</b> What is 4&#8315;&sup2;?</p>
       <div class="quiz-opts">
         <button class="opt" data-correct="false">A. -16</button>
         <button class="opt" data-correct="false">B. -8</button>
@@ -218,7 +197,7 @@
     </div>
 
     <div class="quiz-q" data-quiz data-explain="A negative exponent never makes the answer negative. 3⁻² = 1/3² = 1/9.">
-      <p class="qtext"><b>8.</b> A student simplifies 3 to the power -2 and writes the answer as -9. What mistake did they make, and what is the correct answer?</p>
+      <p class="qtext"><b>8.</b> A student simplifies 3&#8315;&sup2; and writes the answer as -9. What mistake did they make, and what is the correct answer?</p>
       <div class="quiz-opts">
         <button class="opt" data-correct="true">A. They let the negative sign make the answer negative instead of flipping to a fraction; the correct answer is 1/9</button>
         <button class="opt" data-correct="false">B. They forgot to square the 3 — the correct answer is -6</button>
@@ -229,7 +208,7 @@
     </div>
 
     <div class="quiz-q" data-quiz data-explain="First the multiplication law: -3+5=2, giving 2² ÷ 2⁰. Then the division law: 2-0=2, giving 2² = 4.">
-      <p class="qtext"><b>9.</b> Simplify (2 to the power -3, times 2 to the power 5), divided by 2 to the power 0. Give your answer as a single number.</p>
+      <p class="qtext"><b>9.</b> Simplify (2&#8315;&sup3; &times; 2&#8309;) &divide; 2&#8304;. Give your answer as a single number.</p>
       <div class="quiz-opts">
         <button class="opt" data-correct="false">A. 2</button>
         <button class="opt" data-correct="false">B. 8</button>
@@ -240,7 +219,7 @@
     </div>
 
     <div class="quiz-q" data-quiz data-explain="Same base, so add the exponents: 0 + (-2) = -2, giving 5⁻² = 1/5² = 1/25.">
-      <p class="qtext"><b>10.</b> Simplify 5 to the power 0, times 5 to the power -2. Give your answer as a fraction.</p>
+      <p class="qtext"><b>10.</b> Simplify 5&#8304; &times; 5&#8315;&sup2;. Give your answer as a fraction.</p>
       <div class="quiz-opts">
         <button class="opt" data-correct="false">A. 5</button>
         <button class="opt" data-correct="true">B. 1/25</button>
@@ -270,39 +249,6 @@
 </div>
 
 <script>
-  // ---- background music toggle: off by default, student opts in, choice remembered ----
-  (function(){
-    var audio = document.getElementById('bgMusic');
-    var btn = document.getElementById('musicToggle');
-    var iconOff = document.getElementById('musicIconOff');
-    var iconOn = document.getElementById('musicIconOn');
-    var label = document.getElementById('musicLabel');
-    audio.volume = 0.35;
-
-    function setState(on){
-      if (on){
-        audio.play().catch(function(){ /* ignore autoplay-block errors */ });
-        iconOff.hidden = true; iconOn.hidden = false;
-        label.textContent = 'Music: on';
-        btn.setAttribute('aria-pressed', 'true');
-      } else {
-        audio.pause();
-        iconOff.hidden = false; iconOn.hidden = true;
-        label.textContent = 'Music: off';
-        btn.setAttribute('aria-pressed', 'false');
-      }
-      try { localStorage.setItem('quizMusicOn', on ? '1' : '0'); } catch (e) {}
-    }
-
-    btn.addEventListener('click', function(){
-      setState(audio.paused);
-    });
-
-    var remembered = '0';
-    try { remembered = localStorage.getItem('quizMusicOn') || '0'; } catch (e) {}
-    if (remembered === '1') setState(true);
-  })();
-
   // ---- shuffle answer options: randomized for a visitor's first 2 visits only, fixed order after that ----
   (function(){
     var VISIT_KEY = 'quizVisits_indicesPart2';
