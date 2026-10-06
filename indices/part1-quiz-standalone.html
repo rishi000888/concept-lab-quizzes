@@ -93,9 +93,30 @@
 
   footer{ margin-top:60px; text-align:center; color:var(--ink-soft); font-size:15px; }
   footer a{ color:var(--ink-soft); }
+
+  /* ---------------- background music toggle ---------------- */
+  .music-toggle{
+    position:fixed; top:16px; right:16px; z-index:50;
+    display:flex; align-items:center; gap:8px;
+    background:var(--card); border:2.5px solid var(--ink);
+    border-radius:999px; padding:8px 14px 8px 12px;
+    box-shadow:3px 4px 0 var(--shadow);
+    cursor:pointer; font-family:'Kalam',cursive; font-size:14px; color:var(--ink);
+    -webkit-tap-highlight-color:transparent;
+  }
+  .music-toggle:hover{ background:var(--bg2); }
+  .music-toggle svg{ width:18px; height:18px; flex:none; }
+  .music-toggle .mt-label{ white-space:nowrap; }
+  @media (max-width:480px){ .music-toggle .mt-label{ display:none; } .music-toggle{ padding:10px; } }
 </style>
 </head>
 <body>
+<audio id="bgMusic" src="quiz_bg_music.mp3" loop preload="none"></audio>
+<button class="music-toggle" id="musicToggle" type="button" aria-pressed="false">
+  <svg id="musicIconOff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+  <svg id="musicIconOn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" hidden><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+  <span class="mt-label" id="musicLabel">Music: off</span>
+</button>
 <div class="page">
 
   <header>
@@ -233,6 +254,39 @@
 </div>
 
 <script>
+  // ---- background music toggle: off by default, student opts in, choice remembered ----
+  (function(){
+    var audio = document.getElementById('bgMusic');
+    var btn = document.getElementById('musicToggle');
+    var iconOff = document.getElementById('musicIconOff');
+    var iconOn = document.getElementById('musicIconOn');
+    var label = document.getElementById('musicLabel');
+    audio.volume = 0.35;
+
+    function setState(on){
+      if (on){
+        audio.play().catch(function(){ /* ignore autoplay-block errors */ });
+        iconOff.hidden = true; iconOn.hidden = false;
+        label.textContent = 'Music: on';
+        btn.setAttribute('aria-pressed', 'true');
+      } else {
+        audio.pause();
+        iconOff.hidden = false; iconOn.hidden = true;
+        label.textContent = 'Music: off';
+        btn.setAttribute('aria-pressed', 'false');
+      }
+      try { localStorage.setItem('quizMusicOn', on ? '1' : '0'); } catch (e) {}
+    }
+
+    btn.addEventListener('click', function(){
+      setState(audio.paused);
+    });
+
+    var remembered = '0';
+    try { remembered = localStorage.getItem('quizMusicOn') || '0'; } catch (e) {}
+    if (remembered === '1') setState(true);
+  })();
+
   // ---- quiz grading: each click is scored and revealed immediately, with a one-line explanation ----
   var totalQuestions = document.querySelectorAll('[data-quiz]').length;
   var answeredCount = 0, correctCount = 0;
