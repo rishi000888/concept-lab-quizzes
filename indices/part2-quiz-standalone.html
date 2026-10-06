@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What Are Negative and Zero Indices? Quiz | The Concept Lab</title>
+<meta name="description" content="A 10-question quiz on zero and negative indices (a^0 = 1, a^-n = 1/a^n).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FDFCF7; --bg2:#F4F1E7;
+    --ink:#1E3A5C; --ink-soft:#5B6B78;
+    --rule:rgba(60,95,150,.22);
+    --accent:#F5B041; --accent-ink:#1E3A5C;
+    --good:#2F7A4F; --bad:#C64033;
+    --highlight:rgba(247,214,84,.55);
+    --note-g:#BEDCAE; --note-g-ink:#2b4a1c;
+    --note-p:#F0B9C6; --note-p-ink:#6b1f30;
+    --note-b:#AFD3E6; --note-b-ink:#1c3f52;
+    --card:#FDFCF7;
+    --shadow:rgba(30,30,20,.28);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#1B2621; --bg2:#16201B;
+      --ink:#EFEBDD; --ink-soft:#9FB0A4;
+      --rule:rgba(255,255,255,.10);
+      --accent:#F5B041; --accent-ink:#EFEBDD;
+      --good:#8FD6A6; --bad:#FF8A72;
+      --highlight:rgba(255,213,79,.22);
+      --note-g:rgba(190,220,174,.14); --note-g-ink:#BEDCAE;
+      --note-p:rgba(240,185,198,.14); --note-p-ink:#F0B9C6;
+      --note-b:rgba(175,211,230,.14); --note-b-ink:#AFD3E6;
+      --card:rgba(255,255,255,.04);
+      --shadow:rgba(0,0,0,.5);
+    }
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:'Kalam',cursive; font-size:19px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--highlight); color:var(--ink);}
+  h1,h2,h3{font-family:'Permanent Marker',cursive; font-weight:400; letter-spacing:.01em;}
+
+  .page{ max-width:760px; margin:0 auto; padding:40px clamp(18px,6vw,56px) 90px; }
+
+  header{ margin-bottom:34px; }
+  .eyebrow{ color:var(--accent-ink); opacity:.8; font-size:15px; margin:0 0 4px; transform:rotate(-1deg); }
+  h1{ font-size:clamp(32px,7vw,52px); line-height:1.05; margin:0 0 10px; color:var(--bad); text-wrap:balance; }
+  header p.dek{ max-width:52ch; font-size:19px; color:var(--ink-soft); margin:0; }
+
+  section{ margin-bottom:44px; }
+  h2{ font-size:clamp(24px,5vw,30px); color:var(--accent-ink); margin:0 0 14px; display:inline-block; }
+  h2 .hi{ background:var(--highlight); padding:0 8px; border-radius:3px 8px 5px 9px/6px 4px 8px 3px; }
+  p{ margin:0 0 12px; max-width:62ch; }
+  .lede{ font-size:18px; color:var(--ink-soft); }
+
+  /* ---------------- quiz ---------------- */
+  .quiz-q{ margin-top:26px; padding-top:26px; border-top:2px dashed var(--rule); }
+  .quiz-q:first-of-type{ margin-top:0; padding-top:0; border-top:none; }
+  .quiz-q p.qtext{ font-size:19px; margin-bottom:10px; }
+  .quiz-opts{ display:flex; flex-direction:column; gap:9px; }
+  .opt{
+    text-align:left; font-family:'Kalam',cursive; font-size:17.5px;
+    padding:9px 16px; border:2.5px solid var(--ink-soft);
+    border-radius:10px 16px 12px 18px/14px 9px 16px 11px;
+    background:transparent; cursor:pointer; color:var(--ink);
+  }
+  .opt:hover:not(.correct):not(.incorrect){ border-color:var(--accent-ink); }
+  .opt.correct{ border-color:var(--good); background:var(--note-g); color:var(--note-g-ink); }
+  .opt.incorrect{ border-color:var(--bad); background:var(--note-p); color:var(--note-p-ink); }
+  .opt[disabled]{ cursor:default; }
+  .quiz-feedback{ font-size:15.5px; color:var(--ink-soft); margin-top:8px; min-height:1.3em; }
+
+  .quiz-submit-wrap{ margin-top:30px; text-align:center; }
+  .submit-btn{
+    font-family:'Permanent Marker',cursive; font-size:18px; color:var(--accent-ink);
+    background:var(--accent); border:2.5px solid var(--ink); cursor:pointer;
+    padding:12px 28px; border-radius:10px 16px 12px 18px/14px 9px 16px 11px;
+    box-shadow:4px 6px 0 var(--shadow);
+  }
+  .submit-btn:hover:not(:disabled){ transform:translate(1px,1px); box-shadow:3px 4px 0 var(--shadow); }
+  .submit-btn:disabled{ opacity:.65; cursor:default; }
+  .submit-msg{ margin-top:10px; font-size:15.5px; color:var(--ink-soft); min-height:1.3em; }
+
+  .score-card{
+    margin-top:34px; padding:22px 24px; border-radius:10px 16px 12px 18px/14px 9px 16px 11px;
+    background:var(--bg2); border:2.5px solid var(--ink); box-shadow:4px 6px 0 var(--shadow);
+    text-align:center;
+  }
+  .score-card[hidden]{ display:none; }
+  .score-card h3{ margin:0 0 6px; font-size:24px; color:var(--bad); }
+  .score-card p{ margin:0 auto 14px; }
+  .score-card a{
+    display:inline-block; margin-top:6px; font-family:'Permanent Marker',cursive;
+    color:var(--accent-ink); text-decoration:none; border-bottom:2px solid var(--accent-ink);
+    padding-bottom:2px;
+  }
+
+  footer{ margin-top:60px; text-align:center; color:var(--ink-soft); font-size:15px; }
+  footer a{ color:var(--ink-soft); }
+
+  /* ---------------- background music toggle ---------------- */
+  .music-toggle{
+    position:fixed; top:16px; right:16px; z-index:50;
+    display:flex; align-items:center; gap:8px;
+    background:var(--card); border:2.5px solid var(--ink);
+    border-radius:999px; padding:8px 14px 8px 12px;
+    box-shadow:3px 4px 0 var(--shadow);
+    cursor:pointer; font-family:'Kalam',cursive; font-size:14px; color:var(--ink);
+    -webkit-tap-highlight-color:transparent;
+  }
+  .music-toggle:hover{ background:var(--bg2); }
+  .music-toggle svg{ width:18px; height:18px; flex:none; }
+  .music-toggle .mt-label{ white-space:nowrap; }
+  @media (max-width:480px){ .music-toggle .mt-label{ display:none; } .music-toggle{ padding:10px; } }
+</style>
+</head>
+<body>
+<audio id="bgMusic" src="quiz_bg_music.mp3" loop preload="none"></audio>
+<button class="music-toggle" id="musicToggle" type="button" aria-pressed="false">
+  <svg id="musicIconOff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+  <svg id="musicIconOn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" hidden><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+  <span class="mt-label" id="musicLabel">Music: off</span>
+</button>
+<div class="page">
+
+  <header>
+    <p class="eyebrow">The Concept Lab &middot; Practice Quiz &middot; Indices Series, Video 2</p>
+    <h1>What Are Negative and Zero Indices?</h1>
+    <p class="dek">A 10-question check — a⁰ = 1, a⁻ⁿ = 1/aⁿ, and the #1 sign mistake. Each answer is graded the moment you click it.</p>
+  </header>
+
+  <section id="quizSection">
+    <h2><span class="hi">Test yourself</span></h2>
+    <p class="lede">Pick an answer for each question below — you'll see right away whether it's correct, with a one-line explanation.</p>
+
+    <div class="quiz-q" data-quiz data-explain="Follow the pattern: 2³=8, 2²=4, 2¹=2 -- each step divides by 2. One more division (2÷2) gives 1, not 0.">
+      <p class="qtext"><b>1.</b> What is 2 to the power 0?</p>
+      <div class="quiz-opts">
+        <button class="opt" data-correct="false">A. 0</button>
+        <button class="opt" data-correct="false">B. 2</button>
+        <button class="opt" data-correct="true">C. 1</button>
+        <button class="opt" data-correct="false">D. -1</button>
+      </div>
+      <p class="quiz-feedback"></p>
+    </div>
+
+    <div class="quiz-q" data-quiz data-explain="This is the zero index rule: a⁰ = 1, for any nonzero base a.">
+      <p class="qtext"><b>2.</b> Any nonzero number raised to the power 0 equals...</p>
+      <div class="quiz-opts">
+        <button class="opt" data-correct="true">A. 1</button>
+        <button class="opt" data-correct="false">B. 0</button>
+        <button class="opt" data-correct="false">C. The number itself</button>
+        <button class="opt" data-correct="false">D. It depends on the number</button>
+      </div>
+      <p class="quiz-feedback"></p>
+    </div>
+
+    <div class="quiz-q" data-quiz data-explain="Any nonzero base to the power 0 is 1 -- it doesn't matter that the base is 9.">
+      <p class="qtext"><b>3.</b> What is 9 to the power 0?</p>
+      <div class="quiz-opts">
+        <button class="opt" data-correct="false">A. 0</button>
+        <button class="opt" data-correct="false">B. 9</button>
+        <button class="opt" data-correct="false">C. 81</button>
+        <button class="opt" data-correct="true">D. 1</button>
+      </div>
+      <p class="quiz-feedback"></p>
+    </div>
+
+    <div class="quiz-q" data-quiz data-explain="Continuing the pattern past zero: 2⁰=1, divide by 2 once more gives 1/2 -- a fraction, not a negative number.">
+      <p class="qtext"><b>4.</b> What is 2 to the power -1?</p>
+      <div class="quiz-opts">
+        <button class="opt" data-correct="false">A. -2</button>
+        <button class="opt" data-correct="true">B. 1/2</button>
+        <button class="opt" data-correct="false">C. 2</button>
+        <button class="opt" data-correct="false">D. -1/2</button>
+      </div>
+      <p class="quiz-feedback"></p>
+    </div>
+
+    <div class="quiz-q" data-quiz data-explain="This is the #1 misconception. A negative exponent flips the base into a fraction (a⁻ⁿ = 1/aⁿ) -- the minus sign never carries over to make the answer negative.">
+      <p class="qtext"><b>5.</b> Does a negative exponent make the final answer a negative number?</p>
+      <div class="quiz-opts">
+        <button class="opt" data-correct="true">A. No — it makes a fraction instead</button>
+        <button class="opt" data-correct="false">B. Yes, always</button>
+        <button class="opt" data-correct="false">C. Only if the base is negative</button>
+        <button class="opt" data-correct="false">D. Only if the exponent is even</button>
+      </div>
+      <p class="quiz-feedback"></p>
+    </div>
+
+    <div class="quiz-q" data-quiz data-explain="7⁻² = 1/7² = 1/49.">
+      <p class="qtext"><b>6.</b> What is 7 to the power -2?</p>
+      <div class="quiz-opts">
+        <button class="opt" data-correct="false">A. -49</button>
+        <button class="opt" data-correct="false">B. -14</button>
+        <button class="opt" data-correct="false">C. 49</button>
+        <button class="opt" data-correct="true">D. 1/49</button>
+      </div>
+      <p class="quiz-feedback"></p>
+    </div>
+
+    <div class="quiz-q" data-quiz data-explain="4⁻² = 1/4² = 1/16. A common mistake is writing -16 by letting the minus sign 'leak' into the answer -- but the sign only flips the base to a fraction.">
+      <p class="qtext"><b>7.</b> What is 4 to the power -2?</p>
+      <div class="quiz-opts">
+        <button class="opt" data-correct="false">A. -16</button>
+        <button class="opt" data-correct="false">B. -8</button>
+        <button class="opt" data-correct="true">C. 1/16</button>
+        <button class="opt" data-correct="false">D. 8</button>
+      </div>
+      <p class="quiz-feedback"></p>
+    </div>
+
+    <div class="quiz-q" data-quiz data-explain="A negative exponent never makes the answer negative. 3⁻² = 1/3² = 1/9.">
+      <p class="qtext"><b>8.</b> A student simplifies 3 to the power -2 and writes the answer as -9. What mistake did they make, and what is the correct answer?</p>
+      <div class="quiz-opts">
+        <button class="opt" data-correct="true">A. They let the negative sign make the answer negative instead of flipping to a fraction; the correct answer is 1/9</button>
+        <button class="opt" data-correct="false">B. They forgot to square the 3 — the correct answer is -6</button>
+        <button class="opt" data-correct="false">C. They should have multiplied by -2 — the correct answer is -6</button>
+        <button class="opt" data-correct="false">D. The expression cannot be simplified further</button>
+      </div>
+      <p class="quiz-feedback"></p>
+    </div>
+
+    <div class="quiz-q" data-quiz data-explain="First the multiplication law: -3+5=2, giving 2² ÷ 2⁰. Then the division law: 2-0=2, giving 2² = 4.">
+      <p class="qtext"><b>9.</b> Simplify (2 to the power -3, times 2 to the power 5), divided by 2 to the power 0. Give your answer as a single number.</p>
+      <div class="quiz-opts">
+        <button class="opt" data-correct="false">A. 2</button>
+        <button class="opt" data-correct="false">B. 8</button>
+        <button class="opt" data-correct="false">C. 1</button>
+        <button class="opt" data-correct="true">D. 4</button>
+      </div>
+      <p class="quiz-feedback"></p>
+    </div>
+
+    <div class="quiz-q" data-quiz data-explain="Same base, so add the exponents: 0 + (-2) = -2, giving 5⁻² = 1/5² = 1/25.">
+      <p class="qtext"><b>10.</b> Simplify 5 to the power 0, times 5 to the power -2. Give your answer as a fraction.</p>
+      <div class="quiz-opts">
+        <button class="opt" data-correct="false">A. 5</button>
+        <button class="opt" data-correct="true">B. 1/25</button>
+        <button class="opt" data-correct="false">C. 1</button>
+        <button class="opt" data-correct="false">D. -1/25</button>
+      </div>
+      <p class="quiz-feedback"></p>
+    </div>
+
+    <div class="quiz-submit-wrap">
+      <button type="button" class="submit-btn" id="submitQuizBtn">Submit Quiz</button>
+      <p class="submit-msg" id="submitMsg"></p>
+    </div>
+
+    <div class="score-card" id="scoreCard" hidden>
+      <h3 id="scoreTitle">Done!</h3>
+      <p id="scoreText"></p>
+      <a href="https://www.youtube.com/@IGCSEMathPhysicsLab" target="_blank" rel="noopener">More from The Concept Lab &rarr;</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>The Concept Lab &middot; Learn it once. Understand it forever.<br>
+    <a href="https://www.youtube.com/@IGCSEMathPhysicsLab" target="_blank" rel="noopener">Subscribe on YouTube</a></p>
+  </footer>
+
+</div>
+
+<script>
+  // ---- background music toggle: off by default, student opts in, choice remembered ----
+  (function(){
+    var audio = document.getElementById('bgMusic');
+    var btn = document.getElementById('musicToggle');
+    var iconOff = document.getElementById('musicIconOff');
+    var iconOn = document.getElementById('musicIconOn');
+    var label = document.getElementById('musicLabel');
+    audio.volume = 0.35;
+
+    function setState(on){
+      if (on){
+        audio.play().catch(function(){ /* ignore autoplay-block errors */ });
+        iconOff.hidden = true; iconOn.hidden = false;
+        label.textContent = 'Music: on';
+        btn.setAttribute('aria-pressed', 'true');
+      } else {
+        audio.pause();
+        iconOff.hidden = false; iconOn.hidden = true;
+        label.textContent = 'Music: off';
+        btn.setAttribute('aria-pressed', 'false');
+      }
+      try { localStorage.setItem('quizMusicOn', on ? '1' : '0'); } catch (e) {}
+    }
+
+    btn.addEventListener('click', function(){
+      setState(audio.paused);
+    });
+
+    var remembered = '0';
+    try { remembered = localStorage.getItem('quizMusicOn') || '0'; } catch (e) {}
+    if (remembered === '1') setState(true);
+  })();
+
+  // ---- shuffle answer options: randomized for a visitor's first 2 visits only, fixed order after that ----
+  (function(){
+    var VISIT_KEY = 'quizVisits_indicesPart2';
+    var visits = 0;
+    try { visits = parseInt(localStorage.getItem(VISIT_KEY) || '0', 10); } catch (e) {}
+    try { localStorage.setItem(VISIT_KEY, String(visits + 1)); } catch (e) {}
+    if (visits >= 2) return;
+
+    var letters = ['A', 'B', 'C', 'D'];
+    document.querySelectorAll('[data-quiz] .quiz-opts').forEach(function(optsEl){
+      var opts = Array.prototype.slice.call(optsEl.querySelectorAll('.opt'));
+      var entries = opts.map(function(o){
+        return { html: o.innerHTML.replace(/^[A-D]\.\s*/, ''), correct: o.dataset.correct };
+      });
+      for (var i = entries.length - 1; i > 0; i--){
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = entries[i]; entries[i] = entries[j]; entries[j] = tmp;
+      }
+      opts.forEach(function(o, idx){
+        o.innerHTML = letters[idx] + '. ' + entries[idx].html;
+        o.dataset.correct = entries[idx].correct;
+      });
+    });
+  })();
+
+  // ---- quiz grading: each click is scored and revealed immediately, with a one-line explanation ----
+  var totalQuestions = document.querySelectorAll('[data-quiz]').length;
+  var answeredCount = 0, correctCount = 0;
+
+  document.querySelectorAll('[data-quiz]').forEach(function(q){
+    var opts = q.querySelectorAll('.opt');
+    var feedback = q.querySelector('.quiz-feedback');
+    var explain = q.dataset.explain || '';
+    opts.forEach(function(opt){
+      opt.addEventListener('click', function(){
+        if (q.dataset.answered) return;
+        q.dataset.answered = '1';
+        answeredCount++;
+        var isCorrect = opt.dataset.correct === 'true';
+        if (isCorrect) correctCount++;
+        opts.forEach(function(o){
+          o.disabled = true;
+          if (o.dataset.correct === 'true'){ o.classList.add('correct'); }
+          else if (o === opt){ o.classList.add('incorrect'); }
+        });
+        feedback.textContent = (isCorrect ? 'Correct! ' : 'Not quite — the correct answer is highlighted above. ') + explain;
+
+        if (answeredCount === totalQuestions){
+          var scoreCard = document.getElementById('scoreCard');
+          var scoreTitle = document.getElementById('scoreTitle');
+          var scoreText = document.getElementById('scoreText');
+          scoreTitle.textContent = correctCount === totalQuestions ? 'Perfect score!' : 'Quiz complete';
+          scoreText.textContent = 'You scored ' + correctCount + ' / ' + totalQuestions + '.' +
+            (correctCount === totalQuestions ? ' You have zero and negative indices down.' : ' Review anything you missed, then you are ready for Video 3 (combining all three laws).');
+          scoreCard.hidden = false;
+          scoreCard.scrollIntoView({behavior:'smooth', block:'center'});
+        }
+      });
+    });
+  });
+
+  // ---- submit button: records one completed-submission count via a free public counter API ----
+  (function(){
+    var btn = document.getElementById('submitQuizBtn');
+    var msg = document.getElementById('submitMsg');
+    var submitted = false;
+
+    btn.addEventListener('click', function(){
+      if (submitted) return;
+      if (answeredCount < totalQuestions){
+        msg.textContent = 'Please answer all ' + totalQuestions + ' questions before submitting.';
+        return;
+      }
+      submitted = true;
+      btn.disabled = true;
+      btn.textContent = 'Submitted ✓';
+      msg.textContent = 'Thanks — your submission has been recorded.';
+
+      fetch('https://api.countapi.xyz/hit/conceptlab-quizzes/indices-part2-exponent-video2')
+        .catch(function(){ /* counting is best-effort; a failed ping shouldn't affect the student's quiz */ });
+    });
+  })();
+</script>
+</body>
+</html>
