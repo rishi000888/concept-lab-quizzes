@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adding Fractions with Different Denominators (Cross-Multiplication) Quiz | The Concept Lab</title>
+<meta name="description" content="A 10-question quiz on adding fractions with different denominators using the cross-multiplication method, graded from easy to advanced.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FDFCF7; --bg2:#F4F1E7;
+    --ink:#1E3A5C; --ink-soft:#5B6B78;
+    --rule:rgba(60,95,150,.22);
+    --accent:#F5B041; --accent-ink:#1E3A5C;
+    --good:#2F7A4F; --bad:#C64033;
+    --highlight:rgba(247,214,84,.55);
+    --note-g:#BEDCAE; --note-g-ink:#2b4a1c;
+    --note-p:#F0B9C6; --note-p-ink:#6b1f30;
+    --note-b:#AFD3E6; --note-b-ink:#1c3f52;
+    --card:#FDFCF7;
+    --shadow:rgba(30,30,20,.28);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#1B2621; --bg2:#16201B;
+      --ink:#EFEBDD; --ink-soft:#9FB0A4;
+      --rule:rgba(255,255,255,.10);
+      --accent:#F5B041; --accent-ink:#EFEBDD;
+      --good:#8FD6A6; --bad:#FF8A72;
+      --highlight:rgba(255,213,79,.22);
+      --note-g:rgba(190,220,174,.14); --note-g-ink:#BEDCAE;
+      --note-p:rgba(240,185,198,.14); --note-p-ink:#F0B9C6;
+      --note-b:rgba(175,211,230,.14); --note-b-ink:#AFD3E6;
+      --card:rgba(255,255,255,.04);
+      --shadow:rgba(0,0,0,.5);
+    }
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:'Kalam',cursive; font-size:19px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--highlight); color:var(--ink);}
+  h1,h2,h3{font-family:'Permanent Marker',cursive; font-weight:400; letter-spacing:.01em;}
+
+  .page{ max-width:760px; margin:0 auto; padding:40px clamp(18px,6vw,56px) 90px; }
+
+  header{ margin-bottom:34px; }
+  .eyebrow{ color:var(--accent-ink); opacity:.8; font-size:15px; margin:0 0 4px; transform:rotate(-1deg); }
+  h1{ font-size:clamp(30px,6.6vw,48px); line-height:1.08; margin:0 0 10px; color:var(--bad); text-wrap:balance; }
+  header p.dek{ max-width:52ch; font-size:19px; color:var(--ink-soft); margin:0; }
+
+  section{ margin-bottom:44px; }
+  h2{ font-size:clamp(24px,5vw,30px); color:var(--accent-ink); margin:0 0 14px; display:inline-block; }
+  h2 .hi{ background:var(--highlight); padding:0 8px; border-radius:3px 8px 5px 9px/6px 4px 8px 3px; }
+  p{ margin:0 0 12px; max-width:62ch; }
+  .lede{ font-size:18px; color:var(--ink-soft); }
+
+  /* ---------------- fractions ---------------- */
+  .frac{ display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 2px; line-height:1.1; }
+  .frac .fline{ width:100%; height:2px; background:currentColor; margin:1px 0; }
+
+  /* ---------------- definitions ---------------- */
+  .def-card{
+    padding:14px 20px; margin-bottom:14px; border-radius:10px 16px 12px 18px/14px 9px 16px 11px;
+    background:var(--note-b); border:2px solid var(--note-b-ink);
+  }
+  .def-card .def-term{
+    display:block; font-family:'Permanent Marker',cursive; font-size:18px; color:var(--note-b-ink); margin-bottom:4px;
+  }
+  .def-card p{ margin:0; color:var(--note-b-ink); max-width:none; }
+  .def-card p.eg{ margin-top:6px; font-style:italic; opacity:.9; }
+  .def-card.warn{ background:var(--note-p); border-color:var(--note-p-ink); }
+  .def-card.warn .def-term, .def-card.warn p{ color:var(--note-p-ink); }
+
+  /* ---------------- difficulty tags ---------------- */
+  .diff-tag{
+    display:inline-block; font-family:'Permanent Marker',cursive; font-size:12px;
+    padding:2px 10px; border-radius:999px; margin-right:8px; vertical-align:middle;
+  }
+  .diff-easy{ background:var(--note-g); color:var(--note-g-ink); }
+  .diff-medium{ background:var(--note-b); color:var(--note-b-ink); }
+  .diff-hard{ background:var(--accent); color:var(--accent-ink); }
+  .diff-advanced{ background:var(--note-p); color:var(--note-p-ink); }
+
+  /* ---------------- quiz ---------------- */
+  .quiz-q{ margin-top:26px; padding-top:26px; border-top:2px dashed var(--rule); }
+  .quiz-q:first-of-type{ margin-top:0; padding-top:0; border-top:none; }
+  .quiz-q p.qtext{ font-size:19px; margin-bottom:10px; }
+  .quiz-opts{ display:flex; flex-direction:column; gap:9px; }
+  .opt{
+    text-align:left; font-family:'Kalam',cursive; font-size:17.5px;
+    padding:9px 16px; border:2.5px solid var(--ink-soft);
+    border-radius:10px 16px 12px 18px/14px 9px 16px 11px;
+    background:transparent; cursor:pointer; color:var(--ink);
+  }
+  .opt:hover:not(.correct):not(.incorrect){ border-color:var(--accent-ink); }
+  .opt.correct{ border-color:var(--good); background:var(--note-g); color:var(--note-g-ink); }
+  .opt.incorrect{ border-color:var(--bad); background:var(--note-p); color:var(--note-p-ink); }
+  .opt[disabled]{ cursor:default; }
+  .quiz-feedback{ font-size:15.5px; color:var(--ink-soft); margin-top:8px; min-height:1.3em; }
+
+  .quiz-submit-wrap{ margin-top:30px; text-align:center; }
+  .submit-btn{
+    font-family:'Permanent Marker',cursive; font-size:18px; color:var(--accent-ink);
+    background:var(--accent); border:2.5px solid var(--ink); cursor:pointer;
+    padding:12px 28px; border-radius:10px 16px 12px 18px/14px 9px 16px 11px;
+    box-shadow:4px 6px 0 var(--shadow);
+  }
+  .submit-btn:hover:not(:disabled){ transform:translate(1px,1px); box-shadow:3px 4px 0 var(--shadow); }
+  .submit-btn:disabled{ opacity:.65; cursor:default; }
+  .submit-msg{ margin-top:10px; font-size:15.5px; color:var(--ink-soft); min-height:1.3em; }
+
+  .score-card{
+    margin-top:34px; padding:22px 24px; border-radius:10px 16px 12px 18px/14px 9px 16px 11px;
+    background:var(--bg2); border:2.5px solid var(--ink); box-shadow:4px 6px 0 var(--shadow);
+    text-align:center;
+  }
+  .score-card[hidden]{ display:none; }
+  .score-card h3{ margin:0 0 6px; font-size:24px; color:var(--bad); }
+  .score-card p{ margin:0 auto 14px; }
+  .score-card a{
+    display:inline-block; margin-top:6px; font-family:'Permanent Marker',cursive;
+    color:var(--accent-ink); text-decoration:none; border-bottom:2px solid var(--accent-ink);
+    padding-bottom:2px;
+  }
+
+  /* ---------------- whiteboard ---------------- */
+  .whiteboard-card{
+    padding:16px; border-radius:10px 16px 12px 18px/14px 9px 16px 11px;
+    background:var(--card); border:2.5px solid var(--ink); box-shadow:4px 6px 0 var(--shadow);
+  }
+  .wb-toolbar{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:10px; flex-wrap:wrap; }
+  .wb-colors{ display:flex; gap:8px; align-items:center; }
+  .wb-color{
+    width:26px; height:26px; border-radius:50%; border:2.5px solid var(--ink-soft); cursor:pointer; padding:0;
+    background:var(--ink);
+  }
+  .wb-color[data-color="#C64033"]{ background:#C64033; }
+  .wb-color[data-color="#2F7A4F"]{ background:#2F7A4F; }
+  .wb-color.active{ box-shadow:0 0 0 3px var(--highlight); }
+  .wb-clear-btn{
+    font-family:'Kalam',cursive; font-size:15px; color:var(--ink);
+    background:transparent; border:2.5px solid var(--ink-soft); cursor:pointer;
+    padding:6px 16px; border-radius:10px 16px 12px 18px/14px 9px 16px 11px;
+  }
+  .wb-clear-btn:hover{ border-color:var(--bad); color:var(--bad); }
+  .wb-canvas{
+    width:100%; height:300px; display:block; touch-action:none;
+    background:var(--bg); border:2px dashed var(--rule); border-radius:8px 14px 10px 16px/12px 8px 14px 10px;
+    cursor:crosshair;
+  }
+  .wb-toolbar-actions{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .wb-fullscreen-btn{
+    font-family:'Kalam',cursive; font-size:15px; color:var(--ink);
+    background:transparent; border:2.5px solid var(--ink-soft); cursor:pointer;
+    padding:6px 16px; border-radius:10px 16px 12px 18px/14px 9px 16px 11px;
+  }
+  .wb-fullscreen-btn:hover{ border-color:var(--accent-ink); color:var(--accent-ink); }
+  .wb-exit-fullscreen-btn{
+    display:none; align-items:center; justify-content:center; padding:0; line-height:1;
+    font-family:'Permanent Marker',cursive; font-size:20px; color:var(--bad);
+    background:var(--bg); border:3px solid var(--bad); cursor:pointer;
+    width:40px; height:40px; border-radius:50%;
+  }
+  .whiteboard-card.wb-is-fullscreen{
+    position:fixed; inset:0; width:100vw; height:100vh; max-width:none;
+    margin:0; z-index:99999; border-radius:0; border:none; box-shadow:none;
+    background:var(--bg); padding:0;
+  }
+  .whiteboard-card.wb-is-fullscreen .wb-canvas{
+    position:absolute; inset:0; width:100%; height:100%; border:none; border-radius:0;
+  }
+  .whiteboard-card.wb-is-fullscreen .wb-toolbar{
+    position:absolute; top:18px; left:18px; right:18px; z-index:2;
+    background:var(--bg2); border:2.5px solid var(--ink);
+    border-radius:10px 16px 12px 18px/14px 9px 16px 11px;
+    padding:12px 18px; box-shadow:4px 6px 0 var(--shadow);
+    margin:0; gap:14px;
+  }
+  .whiteboard-card.wb-is-fullscreen .wb-color{ width:46px; height:46px; }
+  .whiteboard-card.wb-is-fullscreen .wb-clear-btn,
+  .whiteboard-card.wb-is-fullscreen .wb-fullscreen-btn{ font-size:20px; padding:13px 24px; }
+  .whiteboard-card.wb-is-fullscreen .wb-fullscreen-btn{ display:none; }
+  .whiteboard-card.wb-is-fullscreen .wb-exit-fullscreen-btn{
+    display:inline-flex; width:54px; height:54px; font-size:28px;
+  }
+
+  footer{ margin-top:60px; text-align:center; color:var(--ink-soft); font-size:15px; }
+  footer a{ color:var(--ink-soft); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <p class="eyebrow">The Concept Lab &middot; Practice Quiz &middot; Fractions Series, Cross-Multiplication Drill</p>
+    <h1>Adding Fractions with Different Denominators</h1>
+    <p class="dek">a/b + c/d = (ad+bc)/bd &mdash; the cross-multiplication method. A 10-question check, easy to advanced. Each answer is graded the moment you click it.</p>
+  </header>
+
+  <section id="defsSection">
+    <h2><span class="hi">Definitions</span></h2>
+    <p class="lede">A quick recap before the quiz below.</p>
+
+    <div class="def-card">
+      <span class="def-term">Cross-multiplication</span>
+      <p>When two fractions have different denominators and neither divides evenly into the other, cross-multiply: multiply diagonally for the new numerator, and multiply the two denominators together for the new denominator.
+      <span class="frac">a<span class="fline"></span>b</span> + <span class="frac">c<span class="fline"></span>d</span> = <span class="frac">ad+bc<span class="fline"></span>bd</span></p>
+      <p class="eg">Example: 1/2 + 1/3 = (1&times;3 + 1&times;2) / (2&times;3) = 5/6</p>
+    </div>
+
+    <div class="def-card warn">
+      <span class="def-term">#1 mistake</span>
+      <p>Adding straight across &mdash; numerator + numerator, denominator + denominator. That is never allowed. 1/2 + 1/3 is NOT 2/5.</p>
+    </div>
+  </section>
+
+  <section id="quizSection">
+    <h2><span class="hi">Test yourself</span></h2>
+    <p class="lede">Pick an answer for each question below &mdash; you'll see right away whether it's correct, with a one-line explanation.</p>
+
+    <div class="quiz-q" data-quiz data-explain="1×2 + 1×4 = 6, over 4×2 = 8, so 6/8 — simplify by dividing by 2 to get 3/4.">
+      <p class="qtext"><span class="diff-tag diff-easy">Easy</span><b>1.</b> What is 1/4 + 1/2?</p>
+      <div class="quiz-opts">
+        <button class="opt" data-correct="true">A. 3/4</button>
+        <button class="opt" data-correct="false">B. 2/6</button>
+        <button class="opt" data-correct="false">C. 1/6</button>
+        <button class="opt" data-correct="false">D. 2/4</button>
+      </div>
+      <p class="quiz-feedback"></p>
+    </div>
+
+    <div class="quiz-q" data-quiz data-explain="1×2 + 1×3 = 5, over 3×2 = 6 — already in lowest terms.">
+      <p class="qtext"><span class="diff-tag diff-easy">Easy</span><b>2.</b> What is 1/3 + 1/2?</p>
+      <div class="quiz-opts">
+        <button class="opt" data-correct="false">A. 2/5</button>
+        <button class="opt" data-correct="true">B. 5/6</button>
+        <button class="opt" data-correct="false">C. 2/6</button>
+        <button class="opt" data-correct="false">D. 1/5</button>
+      </div>
+      <p class="quiz-feedback"></p>
+    </div>
+
+    <div class="quiz-q" data-quiz data-explain="Multiply the two denominators together: 5 × 4 = 20.">
+      <p class="qtext"><span class="diff-tag diff-easy">Easy</span><b>3.</b> For 2/5 + 1/4, what is the new denominator after cross-multiplying?</p>
+      <div class="quiz-opts">
+        <button class="opt" data-correct="false">A. 9</button>
+        <button class="opt" data-correct="false">B. 5</button>
+        <button class="opt" data-correct="false">C. 4</button>
+        <button class="opt" data-correct="true">D. 20</button>
+      </div>
+      <p class="quiz-feedback"></p>
+    </div>
+
+    <div class="quiz-q" data-quiz data-explain="3×5 + 2×4 = 23, over 4×5 = 20, giving 23/20 = 1 3/20.">
+      <p class="qtext"><span class="diff-tag diff-medium">Medium</span><b>4.</b> What is 3/4 + 2/5, as a mixed number?</p>
+      <div class="quiz-opts">
+        <button class="opt" data-correct="true">A. 1 3/20</button>
+        <button class="opt" data-correct="false">B. 5/9</button>
+        <button class="opt" data-correct="false">C. 1 1/20</button>
+        <button class="opt" data-correct="false">D. 23/9</button>
+      </div>
+      <p class="quiz-feedback"></p>
+    </div>
+
+    <div class="quiz-q" data-quiz data-explain="The two denominators are multiplied together to make the new denominator: b × d.">
+      <p class="qtext"><span class="diff-tag diff-medium">Medium</span><b>5.</b> For a/b + c/d, which expression gives the new denominator?</p>
+      <div class="quiz-opts">
+        <button class="opt" data-correct="false">A. b + d</button>
+        <button class="opt" data-correct="true">B. b &times; d</button>
+        <button class="opt" data-correct="false">C. a &times; c</button>
+        <button class="opt" data-correct="false">D. b &minus; d</button>
+      </div>
+      <p class="quiz-feedback"></p>
+    </div>
+
+    <div class="quiz-q" data-quiz data-explain="5×4 + 1×6 = 26, over 6×4 = 24, giving 26/24 — divide top and bottom by 2 to get 13/12.">
+      <p class="qtext"><span class="diff-tag diff-medium">Medium</span><b>6.</b> What is 5/6 + 1/4 in lowest terms?</p>
+      <div class="quiz-opts">
+        <button class="opt" data-correct="false">A. 26/24</button>
+        <button class="opt" data-correct="true">B. 13/12</button>
+        <button class="opt" data-correct="false">C. 6/10</button>
+        <button class="opt" data-correct="false">D. 6/24</button>
+      </div>
+      <p class="quiz-feedback"></p>
+    </div>
+
+    <div class="quiz-q" data-quiz data-explain="7×3 + 2×8 = 37, over 8×3 = 24, giving 37/24 = 1 13/24.">
+      <p class="qtext"><span class="diff-tag diff-hard">Hard</span><b>7.</b> What is 7/8 + 2/3, as a mixed number?</p>
+      <div class="quiz-opts">
+        <button class="opt" data-correct="false">A. 9/11</button>
+        <button class="opt" data-correct="true">B. 1 13/24</button>
+        <button class="opt" data-correct="false">C. 1 7/24</button>
+        <button class="opt" data-correct="false">D. 37/11</button>
+      </div>
+      <p class="quiz-feedback"></p>
+    </div>
+
+    <div class="quiz-q" data-quiz data-explain="Cross-multiply instead: 1×3 + 1×2 = 5, over 2×3 = 6.">
+      <p class="qtext"><span class="diff-tag diff-hard">Hard</span><b>8.</b> A student simplifies 1/2 + 1/3 by adding straight across: "1+1=2, 2+3=5, so 2/5." What mistake did they make, and what's the correct answer?</p>
+      <div class="quiz-opts">
+        <button class="opt" data-correct="false">A. They forgot to simplify; the correct answer is 2/5 reduced</button>
+        <button class="opt" data-correct="true">B. They added the denominators together instead of cross-multiplying; the correct answer is 5/6</button>
+        <button class="opt" data-correct="false">C. They should have subtracted; the correct answer is 1/6</button>
+        <button class="opt" data-correct="false">D. The expression cannot be simplified further</button>
+      </div>
+      <p class="quiz-feedback"></p>
+    </div>
+
+    <div class="quiz-q" data-quiz data-explain="4×6 + 5×9 = 69, over 9×6 = 54, giving 69/54 — both share a factor of 3, simplifying to 23/18.">
+      <p class="qtext"><span class="diff-tag diff-hard">Hard</span><b>9.</b> What is 4/9 + 5/6 in lowest terms?</p>
+      <div class="quiz-opts">
+        <button class="opt" data-correct="false">A. 69/54</button>
+        <button class="opt" data-correct="false">B. 9/15</button>
+        <button class="opt" data-correct="true">C. 23/18</button>
+        <button class="opt" data-correct="false">D. 1 5/18 is wrong because it still needs simplifying further</button>
+      </div>
+      <p class="quiz-feedback"></p>
+    </div>
+
+    <div class="quiz-q" data-quiz data-explain="Numerator of the first × denominator of the second, plus numerator of the second × denominator of the first: 3×5 + 4×7 = 43, over 7×5 = 35.">
+      <p class="qtext"><span class="diff-tag diff-advanced">Advanced</span><b>10.</b> For 3/7 + 4/5, which is the correctly cross-multiplied numerator?</p>
+      <div class="quiz-opts">
+        <button class="opt" data-correct="false">A. 3&times;4 + 7&times;5 = 47</button>
+        <button class="opt" data-correct="false">B. 3&times;7 + 4&times;5 = 41</button>
+        <button class="opt" data-correct="true">C. 3&times;5 + 4&times;7 = 43</button>
+        <button class="opt" data-correct="false">D. 7&times;5 + 7&times;5 = 70</button>
+      </div>
+      <p class="quiz-feedback"></p>
+    </div>
+
+    <div class="quiz-submit-wrap">
+      <button type="button" class="submit-btn" id="submitQuizBtn">Submit Quiz</button>
+      <p class="submit-msg" id="submitMsg"></p>
+    </div>
+
+    <div class="score-card" id="scoreCard" hidden>
+      <h3 id="scoreTitle">Done!</h3>
+      <p id="scoreText"></p>
+      <a href="https://www.youtube.com/@IGCSEMathPhysicsLab" target="_blank" rel="noopener">More from The Concept Lab &rarr;</a>
+    </div>
+  </section>
+
+  <section id="whiteboardSection">
+    <h2><span class="hi">Work it out</span></h2>
+    <p class="lede">Use the scratchpad below to work through a problem by hand before (or after) answering.</p>
+
+    <div class="whiteboard-card">
+      <div class="wb-toolbar">
+        <div class="wb-colors">
+          <button type="button" class="wb-color active" data-color="ink" aria-label="Ink pen"></button>
+          <button type="button" class="wb-color" data-color="#C64033" aria-label="Red pen"></button>
+          <button type="button" class="wb-color" data-color="#2F7A4F" aria-label="Green pen"></button>
+        </div>
+        <div class="wb-toolbar-actions">
+          <button type="button" class="wb-clear-btn">Clear</button>
+          <button type="button" class="wb-fullscreen-btn">Fullscreen</button>
+          <button type="button" class="wb-exit-fullscreen-btn" aria-label="Exit fullscreen">&times;</button>
+        </div>
+      </div>
+      <canvas id="whiteboardCanvas" class="wb-canvas"></canvas>
+    </div>
+  </section>
+
+  <footer>
+    <p>The Concept Lab &middot; Learn it once. Understand it forever.<br>
+    <a href="https://www.youtube.com/@IGCSEMathPhysicsLab" target="_blank" rel="noopener">Subscribe on YouTube</a></p>
+  </footer>
+
+</div>
+
+<script>
+  // ---- shuffle answer options: randomized for a visitor's first 2 visits only, fixed order after that ----
+  (function(){
+    var VISIT_KEY = 'quizVisits_fractionsCrossMultiplication';
+    var visits = 0;
+    try { visits = parseInt(localStorage.getItem(VISIT_KEY) || '0', 10); } catch (e) {}
+    try { localStorage.setItem(VISIT_KEY, String(visits + 1)); } catch (e) {}
+    if (visits >= 2) return;
+
+    var letters = ['A', 'B', 'C', 'D'];
+    document.querySelectorAll('[data-quiz] .quiz-opts').forEach(function(optsEl){
+      var opts = Array.prototype.slice.call(optsEl.querySelectorAll('.opt'));
+      var entries = opts.map(function(o){
+        return { html: o.innerHTML.replace(/^[A-D]\.\s*/, ''), correct: o.dataset.correct };
+      });
+      for (var i = entries.length - 1; i > 0; i--){
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = entries[i]; entries[i] = entries[j]; entries[j] = tmp;
+      }
+      opts.forEach(function(o, idx){
+        o.innerHTML = letters[idx] + '. ' + entries[idx].html;
+        o.dataset.correct = entries[idx].correct;
+      });
+    });
+  })();
+
+  // ---- quiz grading: each click is scored and revealed immediately, with a one-line explanation ----
+  var totalQuestions = document.querySelectorAll('[data-quiz]').length;
+  var answeredCount = 0, correctCount = 0;
+
+  document.querySelectorAll('[data-quiz]').forEach(function(q){
+    var opts = q.querySelectorAll('.opt');
+    var feedback = q.querySelector('.quiz-feedback');
+    var explain = q.dataset.explain || '';
+    opts.forEach(function(opt){
+      opt.addEventListener('click', function(){
+        if (q.dataset.answered) return;
+        q.dataset.answered = '1';
+        answeredCount++;
+        var isCorrect = opt.dataset.correct === 'true';
+        if (isCorrect) correctCount++;
+        opts.forEach(function(o){
+          o.disabled = true;
+          if (o.dataset.correct === 'true'){ o.classList.add('correct'); }
+          else if (o === opt){ o.classList.add('incorrect'); }
+        });
+        feedback.textContent = (isCorrect ? 'Correct! ' : 'Not quite — the correct answer is highlighted above. ') + explain;
+
+        if (answeredCount === totalQuestions){
+          var scoreCard = document.getElementById('scoreCard');
+          var scoreTitle = document.getElementById('scoreTitle');
+          var scoreText = document.getElementById('scoreText');
+          scoreTitle.textContent = correctCount === totalQuestions ? 'Perfect score!' : 'Quiz complete';
+          scoreText.textContent = 'You scored ' + correctCount + ' / ' + totalQuestions + '.' +
+            (correctCount === totalQuestions ? ' You have cross-multiplication down cold.' : ' Review anything you missed, then you are ready for more fractions practice.');
+          scoreCard.hidden = false;
+          scoreCard.scrollIntoView({behavior:'smooth', block:'center'});
+        }
+      });
+    });
+  });
+
+  // ---- submit button: records one completed-submission count via a free public counter API ----
+  (function(){
+    var btn = document.getElementById('submitQuizBtn');
+    var msg = document.getElementById('submitMsg');
+    var submitted = false;
+
+    btn.addEventListener('click', function(){
+      if (submitted) return;
+      if (answeredCount < totalQuestions){
+        msg.textContent = 'Please answer all ' + totalQuestions + ' questions before submitting.';
+        return;
+      }
+      submitted = true;
+      btn.disabled = true;
+      btn.textContent = 'Submitted ✓';
+      msg.textContent = 'Thanks — your submission has been recorded.';
+
+      fetch('https://api.countapi.xyz/hit/conceptlab-quizzes/fractions-cross-multiplication')
+        .catch(function(){ /* counting is best-effort; a failed ping shouldn't affect the student's quiz */ });
+    });
+  })();
+
+  // ---- whiteboard scratchpad: mouse + touch drawing, 3 pen colors, clear button, fullscreen ----
+  (function(){
+    var canvas = document.getElementById('whiteboardCanvas');
+    if (!canvas) return;
+    var card = canvas.closest('.whiteboard-card');
+    if (!card) return;
+    var ctx = canvas.getContext('2d');
+    var drawing = false, lastX = 0, lastY = 0;
+    var inkColor = getComputedStyle(document.documentElement).getPropertyValue('--ink').trim() || '#1E3A5C';
+    var currentColor = inkColor;
+    var lineWidth = 3;
+
+    function resizeCanvasPreserving(){
+      var oldW = canvas.width, oldH = canvas.height;
+      var snapshot = null;
+      if (oldW > 0 && oldH > 0){
+        snapshot = document.createElement('canvas');
+        snapshot.width = oldW; snapshot.height = oldH;
+        snapshot.getContext('2d').drawImage(canvas, 0, 0);
+      }
+
+      var rect = canvas.getBoundingClientRect();
+      var ratio = window.devicePixelRatio || 1;
+      canvas.width = Math.max(1, Math.round(rect.width * ratio));
+      canvas.height = Math.max(1, Math.round(rect.height * ratio));
+
+      if (snapshot){
+        ctx.save();
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.drawImage(snapshot, 0, 0, oldW, oldH, 0, 0, canvas.width, canvas.height);
+        ctx.restore();
+      }
+
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+    }
+    resizeCanvasPreserving();
+    window.addEventListener('resize', resizeCanvasPreserving);
+
+    function getPos(evt){
+      var rect = canvas.getBoundingClientRect();
+      var t = evt.touches && evt.touches[0];
+      var clientX = t ? t.clientX : evt.clientX;
+      var clientY = t ? t.clientY : evt.clientY;
+      return { x: clientX - rect.left, y: clientY - rect.top };
+    }
+    function startDraw(evt){
+      drawing = true;
+      var p = getPos(evt);
+      lastX = p.x; lastY = p.y;
+      evt.preventDefault();
+    }
+    function moveDraw(evt){
+      if (!drawing) return;
+      var p = getPos(evt);
+      ctx.strokeStyle = currentColor;
+      ctx.lineWidth = lineWidth;
+      ctx.beginPath();
+      ctx.moveTo(lastX, lastY);
+      ctx.lineTo(p.x, p.y);
+      ctx.stroke();
+      lastX = p.x; lastY = p.y;
+      evt.preventDefault();
+    }
+    function endDraw(){ drawing = false; }
+
+    canvas.addEventListener('mousedown', startDraw);
+    canvas.addEventListener('mousemove', moveDraw);
+    canvas.addEventListener('mouseup', endDraw);
+    canvas.addEventListener('mouseleave', endDraw);
+    canvas.addEventListener('touchstart', startDraw, { passive: false });
+    canvas.addEventListener('touchmove', moveDraw, { passive: false });
+    canvas.addEventListener('touchend', endDraw);
+
+    card.querySelectorAll('.wb-color').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        card.querySelectorAll('.wb-color').forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        var c = btn.dataset.color;
+        currentColor = (c === 'ink') ? inkColor : c;
+      });
+    });
+
+    var clearBtn = card.querySelector('.wb-clear-btn');
+    if (clearBtn){
+      clearBtn.addEventListener('click', function(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      });
+    }
+
+    var fsBtn = card.querySelector('.wb-fullscreen-btn');
+    var exitBtn = card.querySelector('.wb-exit-fullscreen-btn');
+    var fallbackActive = false;
+
+    function enterFallback(){
+      fallbackActive = true;
+      card.classList.add('wb-is-fullscreen');
+      document.body.style.overflow = 'hidden';
+      setTimeout(resizeCanvasPreserving, 50);
+    }
+    function exitFallback(){
+      fallbackActive = false;
+      card.classList.remove('wb-is-fullscreen');
+      document.body.style.overflow = '';
+      setTimeout(resizeCanvasPreserving, 50);
+    }
+
+    if (fsBtn){
+      fsBtn.addEventListener('click', function(){
+        if (card.requestFullscreen){
+          card.requestFullscreen().catch(function(){ enterFallback(); });
+        } else if (card.webkitRequestFullscreen){
+          card.webkitRequestFullscreen();
+        } else {
+          enterFallback();
+        }
+      });
+    }
+
+    if (exitBtn){
+      exitBtn.addEventListener('click', function(){
+        if (document.fullscreenElement === card){
+          document.exitFullscreen();
+        } else if (document.webkitFullscreenElement === card && document.webkitExitFullscreen){
+          document.webkitExitFullscreen();
+        } else if (fallbackActive){
+          exitFallback();
+        }
+      });
+    }
+
+    function onFullscreenChange(){
+      var fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+      if (fsEl === card){
+        card.classList.add('wb-is-fullscreen');
+      } else if (!fsEl && !fallbackActive){
+        card.classList.remove('wb-is-fullscreen');
+      }
+      setTimeout(resizeCanvasPreserving, 50);
+    }
+    document.addEventListener('fullscreenchange', onFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', onFullscreenChange);
+
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && fallbackActive){
+        exitFallback();
+      }
+    });
+  })();
+</script>
+</body>
+</html>
